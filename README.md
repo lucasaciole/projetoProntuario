@@ -10,5 +10,14 @@ Ruby - Ruby on Rails
 Java - Spring MVC
 
 ## Canais de Comunicação:
-Github;
-Grupo no Facebook;
+Github
+Grupo no Facebook
+
+
+## Colaboradores:
+Lucas Yuji S Aciole
+Felipe Quécole
+Danilo Prado
+Italo José
+Felipe Sampaio
+Dhiogo Henrique

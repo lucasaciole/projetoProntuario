@@ -1,25 +1,7 @@
 # projetoProntuario
+Projeto realizado na disciplina de Laboratório de Banco de Dados com interface feita em Django utilizando PostgreSQL.
 
-
-## Banco de Dados
-  PostgreeSQL.
   
-
-## Opções de Front/Backend:
-  PHP - Boostrap + PHP;
-  
-  Python - Django;
-  
-  Ruby - Ruby on Rails;
-  
-  Java - Spring MVC;
-  
-
-## Canais de Comunicação:
-  Github;
-  Grupo no Facebook;
-
-
 ## Colaboradores:
 Lucas Yuji Aciole
 

@@ -1,0 +1,124 @@
+{% extends 'prontuarioMedico/base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    Prontuario Médico
+{% endblock title %}
+
+{% block header %}
+    Página Inicial
+{% endblock header %}
+{% block body %}
+
+
+
+
+
+    <!-- Primeira linha -->
+    <div class="row">
+
+        <div class="col-xs-12 col-sm-6 col-md-3">
+            <div class="card horizontal cardIcon waves-effect waves-dark">
+                <div class="card-image red">
+                    <i class="fa fa-user fa-5x"></i>
+                </div>
+                <div class="card-stacked">
+                    <div class="card-content">
+                        <h3>16,150</h3>
+                    </div>
+                    <div class="card-action">
+                        <strong>Pacientes</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-3">
+            <div class="card horizontal cardIcon waves-effect waves-dark">
+                <div class="card-image orange">
+                    <i class="fa fa-stethoscope fa-5x"></i>
+                </div>
+                <div class="card-stacked">
+                    <div class="card-content">
+                        <h3>25,550</h3>
+                    </div>
+                    <div class="card-action">
+                        <strong> Médicos</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-3">
+            <div class="card horizontal cardIcon waves-effect waves-dark">
+                <div class="card-image blue">
+                    <i class="fa fa-eye fa-5x"></i>
+                </div>
+                <div class="card-stacked">
+                    <div class="card-content">
+                        <h3>11,225</h3>
+                    </div>
+                    <div class="card-action">
+                        <strong> Cuidadores</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-3">
+            <div class="card horizontal cardIcon waves-effect waves-dark">
+                <div class="card-image">
+                    <i class="fa fa-male fa-5x"></i>
+                </div>
+                <div class="card-stacked">
+                    <div class="card-content">
+                        <h3>72,525</h3>
+                    </div>
+                    <div class="card-action">
+                        <strong> Familiares</strong>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- Fim primeira linha  -->
+
+    <!-- Inicio segunda linha -->
+    <div class="row">
+
+        <div class="col-xs-12 col-sm-6 col-md-3">
+            <div class="card-panel text-center">
+                <h4>Profit</h4>
+                <div class="easypiechart" id="easypiechart-blue" data-percent="50"><span class="percent">50%</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-3">
+            <div class="card-panel text-center">
+                <h4>No. of Visits</h4>
+                <div class="easypiechart" id="easypiechart-red" data-percent="46"><span class="percent">46%</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-3">
+            <div class="card-panel text-center">
+                <h4>Customers</h4>
+                <div class="easypiechart" id="easypiechart-teal" data-percent="84"><span class="percent">84%</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-3">
+            <div class="card-panel text-center">
+                <h4>Sales</h4>
+                <div class="easypiechart" id="easypiechart-orange" data-percent="55"><span
+                        class="percent">55%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Fim segunda linha -->
+{% endblock body %}

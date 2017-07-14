@@ -1,0 +1,77 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html class="loading" lang="pt">
+<head>
+    <title>{% block title %}{% endblock title %}</title>
+
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'prontuarioMedico/materialize/css/materialize.min.css' %}"
+          media="screen,projection"/>
+    <!-- Bootstrap Styles-->
+    <link href="{% static 'prontuarioMedico/css/bootstrap.css' %}" rel="stylesheet"/>
+    <!-- FontAwesome Styles-->
+    <link href="{% static 'prontuarioMedico/css/font-awesome.css' %}" rel="stylesheet"/>
+    <!-- Custom Styles-->
+    <link href="{% static 'prontuarioMedico/css/custom-styles.css' %}" rel="stylesheet"/>
+    <!-- Google Fonts-->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
+    <link rel="stylesheet" href="{% static 'prontuarioMedico/js/Lightweight-Chart/cssCharts.css' %}">
+
+    {% block head_extensions %}{% endblock head_extensions %}
+</head>
+<body>
+<div id="wrapper">
+    {% block topnav %}
+        {% include 'prontuarioMedico/top_nav.html' %}
+    {% endblock topnav %}
+
+    {% block menu %}
+        {% include 'prontuarioMedico/menu.html' %}
+    {% endblock menu %}
+
+
+    <div id="page-wrapper">
+        <div class="header">
+            <h1 class="page-header">
+                {% block header %}{% endblock header %}
+            </h1>
+        </div>
+        <div id="page-inner">
+            {% block body %}{% endblock body %}
+        </div>
+        {% block footer %}
+            {% include 'prontuarioMedico/footer.html' %}
+        {% endblock footer %}
+    </div>
+
+
+</div>
+<!-- JS Scripts-->
+<!-- jQuery Js -->
+<script src="{% static 'prontuarioMedico/js/jquery-1.10.2.js' %}"></script>
+
+<!-- Bootstrap Js -->
+<script src="{% static 'prontuarioMedico/js/bootstrap.min.js' %}"></script>
+
+<script src="{% static 'prontuarioMedico/materialize/js/materialize.min.js' %}"></script>
+
+<!-- Metis Menu Js -->
+<script src="{% static 'prontuarioMedico/js/jquery.metisMenu.js' %}"></script>
+<!-- Morris Chart Js -->
+<script src="{% static 'prontuarioMedico/js/morris/raphael-2.1.0.min.js' %}"></script>
+<script src="{% static 'prontuarioMedico/js/morris/morris.js' %}"></script>
+
+
+<script src="{% static 'prontuarioMedico/js/easypiechart.js' %}"></script>
+<script src="{% static 'prontuarioMedico/js/easypiechart-data.js' %}"></script>
+
+<script src="{% static 'prontuarioMedico/js/Lightweight-Chart/jquery.chart.js' %}"></script>
+
+<!-- Custom Js -->
+<script src="{% static 'prontuarioMedico/js/custom-scripts.js' %}"></script>
+</body>
+</html>

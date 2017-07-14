@@ -1,19 +1,18 @@
 {% extends 'prontuarioMedico/base.html' %}
 {% load staticfiles %}
 
+
 {% block title %}
-    Prontuario Médico
+    Home
 {% endblock title %}
+
 
 {% block header %}
     Página Inicial
 {% endblock header %}
+
+
 {% block body %}
-
-
-
-
-
     <!-- Primeira linha -->
     <div class="row">
 
@@ -24,7 +23,7 @@
                 </div>
                 <div class="card-stacked">
                     <div class="card-content">
-                        <h3>16,150</h3>
+                        <h3>{{ nro_pacientes }}</h3>
                     </div>
                     <div class="card-action">
                         <strong>Pacientes</strong>
@@ -40,7 +39,7 @@
                 </div>
                 <div class="card-stacked">
                     <div class="card-content">
-                        <h3>25,550</h3>
+                        <h3> {{ nro_medicos }}</h3>
                     </div>
                     <div class="card-action">
                         <strong> Médicos</strong>
@@ -56,7 +55,7 @@
                 </div>
                 <div class="card-stacked">
                     <div class="card-content">
-                        <h3>11,225</h3>
+                        <h3> {{ nro_cuidadores }}</h3>
                     </div>
                     <div class="card-action">
                         <strong> Cuidadores</strong>
@@ -72,10 +71,10 @@
                 </div>
                 <div class="card-stacked">
                     <div class="card-content">
-                        <h3>72,525</h3>
+                        <h3> {{ nro_responsaveis }}</h3>
                     </div>
                     <div class="card-action">
-                        <strong> Familiares</strong>
+                        <strong> Responsáveis</strong>
                     </div>
                 </div>
             </div>

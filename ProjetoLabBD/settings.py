@@ -73,11 +73,16 @@ WSGI_APPLICATION = 'ProjetoLabBD.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
+# superuser: labbd456
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'de8lva1b2269c',
+        'USER': 'mnyecaxqlhmmlj',
+        'PASSWORD': '9a83ad816892c5c2d87c4a33eb465426640a8037c9270503fa640a07c92e34a6',
+        'HOST': 'ec2-107-22-162-158.compute-1.amazonaws.com',
+        'PORT': '5432',
     }
 }
 
@@ -119,15 +124,3 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-# STATICFILES_DIRS = (
-#     os.path.join(BASE_DIR, 'static'),
-# )
-
-# List of finder classes that know how to find static files in
-# various locations.
-# STATICFILES_FINDERS = (
-#     'django.contrib.staticfiles.finders.FileSystemFinder',
-#     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#     'compressor.finders.CompressorFinder',
-# )

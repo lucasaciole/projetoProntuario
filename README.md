@@ -21,15 +21,36 @@
 
 
 ## Colaboradores:
-  Lucas Yuji S Aciole;
-  
-  Felipe Quécole;
-  
-  Danilo Prado;
-  
-  Italo José;
-  
-  Felipe Sampaio;
-  
-  Dhiogo Henrique;
-  
+Lucas Yuji Aciole
+
+Camila Vendrametto Araujo
+
+Felipe Sampaio
+
+Danilo Prado
+
+Rebeca Lima Rocha
+
+Giulia Mazzutti Teixeira
+
+Felipe Quécole
+
+Italo Jorge Vieira
+
+Alvaro Magalhães
+
+Diogo Kionori
+
+Leandro Prates Novak
+
+Joao Pasqualini Costa
+
+Lucas Hochleitner da Silva
+
+Alexandre Negretti
+
+Dhiogo Henrique
+
+Victor Cassano
+
+Leonardo Cristovão

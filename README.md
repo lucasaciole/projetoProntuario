@@ -11,8 +11,6 @@ Felipe Sampaio
 
 Danilo Prado
 
-Rebeca Lima Rocha
-
 Giulia Mazzutti Teixeira
 
 Felipe Quécole

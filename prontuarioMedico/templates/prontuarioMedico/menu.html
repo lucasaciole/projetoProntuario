@@ -13,28 +13,33 @@
                    class="{% if pagina == 'paciente' %}active-menu{% endif %} waves-effect waves-dark"><i
                         class="fa fa-user"></i> Paciente</a>
             </li>
-{#            <li>#}
-{#                <a href="{% url 'medico' %}"#}
-{#                   class="{% if pagina == 'medico' %}active-menu{% endif %} waves-effect waves-dark"><i#}
-{#                        class="fa fa-stethoscope"></i> Médico</a>#}
-{#            </li>#}
-{#            <li>#}
-{#                <a href="{% url 'cuidador' %}"#}
-{#                   class="{% if pagina == 'cuidador' %}active-menu{% endif %} waves-effect waves-dark"><i#}
-{#                        class="fa fa-eye"></i> Cuidador</a>#}
-{#            </li>#}
-{##}
-{#            <li>#}
-{#                <a href="{% url 'familiar' %}"#}
-{#                   class="{% if pagina == 'familiar' %}active-menu{% endif %} waves-effect waves-dark"><i#}
-{#                        class="fa fa-male"></i> Familiar</a>#}
-{#            </li>#}
-{##}
-{#            <li>#}
-{#                <a href="{% url 'locais' %}"#}
-{#                   class="{% if pagina == 'locais' %}active-menu{% endif %} waves-effect waves-dark"><i#}
-{#                        class="fa fa-map-marker"></i> Locais</a>#}
-{#            </li>#}
+            {#            <li>#}
+            {#                <a href="{% url 'medico' %}"#}
+            {#                   class="{% if pagina == 'medico' %}active-menu{% endif %} waves-effect waves-dark"><i#}
+            {#                        class="fa fa-stethoscope"></i> Médico</a>#}
+            {#            </li>#}
+            <li>
+                <a href="{% url 'cuidador' %}"
+                   class="{% if pagina == 'cuidador' %}active-menu{% endif %} waves-effect waves-dark"><i
+                        class="fa fa-eye"></i> Cuidador</a>
+            </li>
+            {##}
+            {#            <li>#}
+            {#                <a href="{% url 'familiar' %}"#}
+            {#                   class="{% if pagina == 'familiar' %}active-menu{% endif %} waves-effect waves-dark"><i#}
+            {#                        class="fa fa-male"></i> Familiar</a>#}
+            {#            </li>#}
+            {##}
+            {#            <li>#}
+            {#                <a href="{% url 'locais' %}"#}
+            {#                   class="{% if pagina == 'locais' %}active-menu{% endif %} waves-effect waves-dark"><i#}
+            {#                        class="fa fa-map-marker"></i> Locais</a>#}
+            {#            </li>#}
+            <li>
+                <a href="{% url 'admin' %}"
+                   class="{% if pagina == 'admin' %}active-menu{% endif %} waves-effect waves-dark"><i
+                        class="fa fa-eye"></i> Administrador</a>
+            </li>
 
         </ul>
     </div>

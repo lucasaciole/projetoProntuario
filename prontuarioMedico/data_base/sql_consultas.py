@@ -13,3 +13,9 @@ def get_qtd_pacientes():
     cursor.execute("SELECT COUNT(id_paciente) FROM PACIENTE")
     row = cursor.fetchall()
     return row[0][0]
+
+def get_cuidador():
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM V_CUIDADOR")
+    row = cursor.fetchall()
+    return row

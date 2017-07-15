@@ -45,11 +45,15 @@ def cuidador_contratos(request):
 def cuidador_novo(request):
     if request.method == 'POST':
         form = CuidadorForm(request.POST)
-        print(form)
+        print(form['cpf_cuidador'])
+        if form.is_valid():
+            print(form.cleaned_data)
+        else:
+            print("invalid")
+            return render(request, 'prontuarioMedico/cuidador/cuidador_novo.html', {'form': form})
         return HttpResponseRedirect('/cuidador')
     else:
         form = CuidadorForm()
-        print(form['nome'])
         return render(request, 'prontuarioMedico/cuidador/cuidador_novo.html', {'form': form})
 
 

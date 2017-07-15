@@ -45,18 +45,20 @@ class CuidadorForm(forms.Form):
     cpf_cuidador = forms.CharField(
         label='CPF',
         validators=[numeric],
-        widget=forms.TextInput(attrs={'id': 'cpf', 'placeholder': 'CPF' }),
+        widget=forms.TextInput(attrs={'id': 'cpf' }),
         error_messages={
-            'required': 'Digite o CPF'
+            'required': 'Digite o CPF',
+            'invalid': 'CPF invalido'
         },
         help_text='Digite o CPF.'
     )
     nome = forms.CharField(
         label='Nome',
-        widget=forms.TextInput(attrs={'placeholder': 'Nome'}),
-        validators=[alphabetic],
+        widget=forms.TextInput(),
+        # validators=[alphabetic],
         error_messages={
-            'required': 'Digite o nome do cuidador.'
+            'required': 'Digite o nome do cuidador.',
+            'invalid': 'Nome invalido'
         },
         help_text='Digite o nome do cuidador.'
     )
@@ -65,51 +67,59 @@ class CuidadorForm(forms.Form):
         # widget=forms.RadioSelect(),
         required=False,
         error_messages={
-            'required': 'Campo obrigatório.'
+            'required': 'Campo obrigatório.',
+            'invalid': 'Tipo invalido'
         }
     )
-    datanascimento = forms.DateField(
-        initial=datetime.today(),
+    datanascimento = forms.CharField(
+        widget=forms.TextInput(),
+        required=True,
         error_messages={
-            'required': 'Insira a data de nascimento.'
+            'required': 'Insira a data de nascimento.',
+            'invalid': 'Data de nascimento invalida'
         },
         help_text='Insira a data de nascimento.'
     )
     logradouro = forms.CharField(
         label='Nome',
-        widget=forms.TextInput(attrs={'placeholder': 'Logradouro'}),
+        widget=forms.TextInput(),
         error_messages={
-            'required': 'Digite o logradouro.'
+            'required': 'Digite o logradouro.',
+            'invalid': 'Logradouro invalido'
         },
         help_text='Digite o logradouro.'
     )
     numero = forms.CharField(
         label='Numero',
-        widget=forms.TextInput(attrs={'placeholder': 'Numero'}),
+        widget=forms.TextInput(),
         validators=[alphanumeric],
         error_messages={
-            'required': 'Digite o Numero.'
+            'required': 'Digite o Numero.',
+            'invalid': 'Numero de end invalido'
         },
         help_text='Digite o Numero.'
     )
     bairro = forms.CharField(
         label='Bairro',
-        widget=forms.TextInput(attrs={'placeholder': 'Bairro'}),
+        widget=forms.TextInput(),
         error_messages={
-            'required': 'Digite o Bairro.'
+            'required': 'Digite o Bairro.',
+            'invalid': 'Bairro invalido'
         },
         help_text='Digite o Bairro.'
     )
     complemento = forms.CharField(
         label='Complemento',
-        widget=forms.TextInput(attrs={'placeholder': 'Complemento'}),
+        widget=forms.TextInput(),
+        required=False,
         help_text='Digite o Complemento.'
     )
     cidade = forms.CharField(
         label='Cidade',
-        widget=forms.TextInput(attrs={'placeholder': 'Cidade'}),
+        widget=forms.TextInput(),
         error_messages={
-            'required': 'Digite a Cidade.'
+            'required': 'Digite a Cidade.',
+            'invalid': 'Cidade invalida'
         },
         help_text='Digite a Cidade.'
     )
@@ -121,14 +131,16 @@ class CuidadorForm(forms.Form):
     )
     cep = forms.CharField(
         label='CEP',
-        widget=forms.TextInput(attrs={'placeholder': 'CEP'}),
+        widget=forms.TextInput(),
         error_messages={
-            'required': 'Digite o CEP.'
+            'required': 'Digite o CEP.',
+            'invalid': 'CEP invalido'
         },
         help_text='Digite o CEP.'
     )
     rg = forms.CharField(
         label='RG',
-        widget=forms.TextInput(attrs={'placeholder': 'RG'}),
+        required=False,
+        widget=forms.TextInput(),
         help_text='Digite o RG.'
     )

@@ -1,20 +1,23 @@
 {% extends 'prontuarioMedico/base.html' %}
 {% load staticfiles %}
 
-
 {% block title %}
-    Cuidador
+    Prontuario Médico
 {% endblock title %}
 
-
 {% block header %}
-    Cuidador
+    Cuidadores
 {% endblock header %}
-
-
 {% block body %}
-
-    <div class="fixed-action-btn horizontal click-to-toggle">
+    <ul class="tabs">
+        <li class="tab col-sm-3"><a {% block c_index %}{% endblock c_index%} href="">Index</a></li>
+		<li class="tab col-sm-3"><a href={% url 'cuidador_contratos' %}>Contratos</a></li>
+{#		<li class="tab col s3"><a href="#test3">Disabled Tab</a></li>#}
+{#		<li class="tab col s3"><a href="#test4">Test 4</a></li>#}
+    </ul>
+    {% block cuidador_body %}
+    {% endblock cuidador_body %}
+<div class="fixed-action-btn horizontal click-to-toggle">
         <a class="btn-floating btn-large waves-effect waves-light red" title="Cadastrar Novo"><i class="material-icons">add</i></a>
     </div>
 

@@ -1,0 +1,36 @@
+{% extends 'prontuarioMedico/cuidador/cuidador.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    Prontuario Médico
+{% endblock title %}
+
+{% block header %}
+    Cuidadores
+{% endblock header %}
+{% block c_index %} class = "active" {% endblock c_index %}
+{% block cuidador_body %}
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                    <th>CPF</th>
+                    <th>Nome</th>
+                    <th>Profissional</th>
+                </tr>
+            </thead>
+            <tbody>
+             {% for cuidador in cuidadores %}
+                  <tr>
+                    <td>{{ cuidador.cpf }}</td>
+                    <td>{{ cuidador.nome }}</td>
+                    <td>{% if cuidador.profissional == 'p' %} Sim {% else %} Não {% endif %}</td>
+                </tr>
+    {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+
+
+{% endblock cuidador_body %}

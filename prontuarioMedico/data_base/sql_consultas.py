@@ -25,3 +25,9 @@ def get_qtd_cuidadores():
     cursor.execute("SELECT COUNT(cpf_cuidador) FROM CUIDADOR")
     row = cursor.fetchall()
     return row[0][0]
+
+def get_cuidador():
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM V_CUIDADOR")
+    row = cursor.fetchall()
+    return row

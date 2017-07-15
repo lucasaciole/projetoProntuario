@@ -21,9 +21,27 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
     <link rel="stylesheet" href="{% static 'prontuarioMedico/js/Lightweight-Chart/cssCharts.css' %}">
 
+
+        <!-- Preloader-->
+    <script src="{% static 'prontuarioMedico/js/preloader.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'prontuarioMedico/css/preloader.css' %}"/>
+
     {% block head_extensions %}{% endblock head_extensions %}
 </head>
 <body>
+<div class="preloader-background">
+  <div class="preloader-wrapper big active">
+    <div class="spinner-layer spinner-blue-only">
+      <div class="circle-clipper left">
+        <div class="circle"></div>
+      </div><div class="gap-patch">
+        <div class="circle"></div>
+      </div><div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+    </div>
+  </div>
+</div>
 <div id="wrapper">
     {% block topnav %}
         {% include 'prontuarioMedico/top_nav.html' %}
@@ -65,7 +83,6 @@
 <script src="{% static 'prontuarioMedico/js/morris/raphael-2.1.0.min.js' %}"></script>
 <script src="{% static 'prontuarioMedico/js/morris/morris.js' %}"></script>
 
-
 <script src="{% static 'prontuarioMedico/js/easypiechart.js' %}"></script>
 <script src="{% static 'prontuarioMedico/js/easypiechart-data.js' %}"></script>
 
@@ -73,5 +90,12 @@
 
 <!-- Custom Js -->
 <script src="{% static 'prontuarioMedico/js/custom-scripts.js' %}"></script>
+
+<!-- JQuery Mask -->
+<script src="{% static 'prontuarioMedico/js/jquery.mask.min.js' %}"></script>
+<script src="{% static 'prontuarioMedico/js/form_validators.js'%}"></script>
+{% block extra_scripts %}
+{% endblock %}
+
 </body>
 </html>

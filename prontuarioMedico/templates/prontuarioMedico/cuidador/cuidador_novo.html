@@ -1,0 +1,77 @@
+{% extends 'prontuarioMedico/cuidador/cuidador.html' %}
+{% load staticfiles %}
+{% block cuidador_body %}
+<form action="." method="POST">{% csrf_token %}
+    <div class="row">
+        <div class="input-field col s8">
+            <label for="id_nome">Nome</label>
+            {{ form.nome }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s4">
+            <label for="id_cpf_cuidador">CPF</label>
+            {{ form.cpf_cuidador }}
+        </div>
+        <div class="input-field col s4">
+            <label for="id_rg">RG</label>
+            {{ form.rg }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s4">
+            <label for="id_datanascimento">Data Nascimento</label>
+            <input type="date" placeholder="Data Nascimento" class="datepicker" name="datanascimento" id="id_datanascimento" required>
+        </div>
+        <div class="input-field col s4">
+            {{ form.tipoCuidador }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s5">
+            <label for="id_logradouro">Logradouro</label>
+            {{ form.logradouro }}
+        </div>
+        <div class="input-field col s2">
+            <label for="id_numero">Número</label>
+            {{ form.numero }}
+        </div>
+        <div class="input-field col s5">
+            <label for="id_bairro">Bairro</label>
+            {{ form.bairro }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s4">
+            <label for="id_cep">CEP</label>
+            {{ form.cep }}
+        </div>
+        <div class="input-field col s4">
+            <label for="id_cidade">Cidade</label>
+            {{ form.cidade }}
+        </div>
+        <div class="input-field col s4">
+            {{ form.estado }}
+        </div>
+    </div>
+    <div class="row" align="right">
+          <button class="btn waves-effect waves-light" type="submit" name="action">Cadastrar
+        <i class="material-icons right">send</i>
+  </button>
+    </div>
+
+</form>
+
+{% endblock %}
+
+{% block extra_scripts %}
+    <script>
+        $('select').material_select();
+  </script>
+    <script>
+     $('.datepicker').pickadate({
+        selectMonths: true, // Creates a dropdown to control month
+        selectYears: 160 // Creates a dropdown of 80 years to control year
+     });
+    </script>
+{% endblock extra_scripts %}

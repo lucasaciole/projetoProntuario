@@ -18,11 +18,21 @@
             {#                   class="{% if pagina == 'medico' %}active-menu{% endif %} waves-effect waves-dark"><i#}
             {#                        class="fa fa-stethoscope"></i> Médico</a>#}
             {#            </li>#}
+
             <li>
-                <a href="{% url 'cuidador' %}"
-                   class="{% if pagina == 'cuidador' %}active-menu{% endif %} waves-effect waves-dark"><i
-                        class="fa fa-eye"></i> Cuidador</a>
+            <a href="#" class="waves-effect waves-dark"><i class="fa fa-eye"></i> Cuidador<span class="fa arrow"></span></a>
+            <ul class="nav nav-second-level">
+                <li>
+                    <a href="{% url 'cuidador' %}" class="waves-effect waves-dark"
+                        class="{% if pagina == 'cuidador' %}active-menu{% endif %} "><i class="fa fa-list-ul"></i>Lista de Cuidadores</a>
+                </li>
+                <li>
+                    <a href="{% url 'cuidador_contratos' %}" class="waves-effect waves-dark"
+                        class="{% if pagina == 'cuidador_contratos' %}active-menu{% endif %} "> <i class="fa fa-gavel"></i> Contratos</a>
+                </li>
+            </ul>
             </li>
+
 
             <li>
                 <a href="{% url 'responsavel' %}"

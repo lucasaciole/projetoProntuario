@@ -1,6 +1,7 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from prontuarioMedico.data_base import sql_consultas
+from .forms import CuidadorForm
 
 
 def home(request):
@@ -38,7 +39,18 @@ def cuidador_index(request):
     return render(request, 'prontuarioMedico/cuidador/cuidador_index.html', context_dictionary)
 
 def cuidador_contratos(request):
-    return render(request, 'prontuarioMedico/cuidador/cuidador.html')
+    print('entrou na contratos')
+    return render(request, 'prontuarioMedico/cuidador/cuidador_contratos.html')
+
+def cuidador_novo(request):
+    if request.method == 'POST':
+        form = CuidadorForm(request.POST)
+        print(form)
+        return HttpResponseRedirect('/cuidador')
+    else:
+        form = CuidadorForm()
+        print(form['nome'])
+        return render(request, 'prontuarioMedico/cuidador/cuidador_novo.html', {'form': form})
 
 
 # Views de Responsavel

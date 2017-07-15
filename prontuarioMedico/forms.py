@@ -2,10 +2,6 @@ from django import forms
 from django.core import validators
 from django.utils.datetime_safe import datetime
 
-numeric = validators.RegexValidator(r'^[0-9]*$', 'Apenas numeros são permitidos')
-alphabetic = validators.RegexValidator(r'^[a-zA-z]*$', 'Apenas letras são permitidos')
-alphanumeric = validators.RegexValidator(r'^[0-9a-zA-Z]*$', 'Apenas letras e numeros são permitidos')
-
 choices_profissional = (
     ('n', 'Nao Profissional'),
     ('p', 'Profissional')
@@ -44,7 +40,6 @@ choices_estado  = (
 class CuidadorForm(forms.Form):
     cpf_cuidador = forms.CharField(
         label='CPF',
-        validators=[numeric],
         widget=forms.TextInput(attrs={'id': 'cpf' }),
         error_messages={
             'required': 'Digite o CPF',
@@ -55,7 +50,6 @@ class CuidadorForm(forms.Form):
     nome = forms.CharField(
         label='Nome',
         widget=forms.TextInput(),
-        # validators=[alphabetic],
         error_messages={
             'required': 'Digite o nome do cuidador.',
             'invalid': 'Nome invalido'
@@ -64,7 +58,6 @@ class CuidadorForm(forms.Form):
     )
     tipoCuidador = forms.ChoiceField(
         choices=choices_profissional,
-        # widget=forms.RadioSelect(),
         required=False,
         error_messages={
             'required': 'Campo obrigatório.',
@@ -92,7 +85,6 @@ class CuidadorForm(forms.Form):
     numero = forms.CharField(
         label='Numero',
         widget=forms.TextInput(),
-        validators=[alphanumeric],
         error_messages={
             'required': 'Digite o Numero.',
             'invalid': 'Numero de end invalido'
@@ -126,7 +118,6 @@ class CuidadorForm(forms.Form):
     estado = forms.ChoiceField(
         label='Estado',
         choices=choices_estado,
-        #widget=forms.RadioSelect(),
         help_text='Selecione o Estado'
     )
     cep = forms.CharField(

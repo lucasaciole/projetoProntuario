@@ -1,6 +1,6 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-from prontuarioMedico.data_base import sql_consultas
+from prontuarioMedico.data_base import sql_consultas, sql_inserts
 from .forms import CuidadorForm
 
 
@@ -47,7 +47,7 @@ def cuidador_novo(request):
         form = CuidadorForm(request.POST)
         print(form['cpf_cuidador'])
         if form.is_valid():
-            print(form.cleaned_data)
+            sql_inserts.inserir_cuidador(form.cleaned_data)
         else:
             print("invalid")
             return render(request, 'prontuarioMedico/cuidador/cuidador_novo.html', {'form': form})

@@ -14,6 +14,18 @@ def get_cuidador():
     row = cursor.fetchall()
     return row
 
+def get_cuidador_por_cpf(cpf):
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM V_DETALHES_CUIDADOR WHERE cpf_cuidador = %s", (cpf,))
+    row = cursor.fetchall()
+    return row
+
+def get_telefone_cuidador(cpf):
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM V_TELEFONES_CUIDADORES WHERE cpf_cuidador= %s", (cpf,))
+    row = cursor.fetchall()
+    return row
+
 def get_paciente():
     cursor = connection.cursor()
     cursor.execute("SELECT * FROM PACIENTE")
@@ -44,3 +56,9 @@ def get_qtd_atendimento_no_ultimo_mes():
     cursor.execute("SELECT COUNT(id_atendimentocuidador) FROM atendimentocuidador WHERE atendimentocuidador.datahorainicio > \'"+str(lastMonth.year)+"-"+str(lastMonth.month)+"-"+str(lastMonth.day)+"\'::timestamp without time zone")
     row = cursor.fetchall()
     return row[0][0]
+
+def get_contratos():
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM V_DETALHECONTRATO")
+    row = cursor.fetchall()
+    return row

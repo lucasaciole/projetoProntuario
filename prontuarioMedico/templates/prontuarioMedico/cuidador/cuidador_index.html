@@ -22,6 +22,7 @@
                                     <th>CPF</th>
                                     <th>Nome</th>
                                     <th>Profissional</th>
+                                    <th>Detalhes</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -30,6 +31,7 @@
                                         <td>{{ cuidador.cpf }}</td>
                                         <td>{{ cuidador.nome }}</td>
                                         <td>{% if cuidador.profissional == 'p' %} Sim {% else %} Não {% endif %}</td>
+                                        <td><div align="center"><a href="{% url 'cuidador_detalhes' cuidador.cpf %}"><i class="fa fa-search"></i></a></div></td>
                                     </tr>
                                 {% endfor %}
 

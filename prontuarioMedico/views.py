@@ -67,8 +67,24 @@ def cuidador_index(request):
 
 
 def cuidador_contratos(request):
-    print('entrou na contratos')
-    return render(request, 'prontuarioMedico/cuidador/cuidador_contratos.html')
+    contratos_tuple = sql_consultas.get_contratos()
+    contratos = []
+    for contrato_aux in contratos_tuple:
+        contratos.append({'id_contrato': contrato_aux[0],
+               'cpf_cuidador': contrato_aux[1],
+               'nome_cuidador': contrato_aux[2],
+               'cpf_paciente': contrato_aux[3],
+               'nome_paciente': contrato_aux[4],
+               'data_inicio': contrato_aux[5],
+               'data_fim': contrato_aux[6],
+               'tipo_atendimento': contrato_aux[7],
+               'dia_vencimento': contrato_aux[8],
+               'valor_atendimento': contrato_aux[9],
+               'periodicidade': contrato_aux[10]
+               })
+    context_dictionary = {'pagina': 'contratos',
+                          'contratos': contratos}
+    return render(request, 'prontuarioMedico/cuidador/cuidador_contratos.html', context_dictionary)
 
 
 def cuidador_novo(request):
@@ -76,14 +92,38 @@ def cuidador_novo(request):
         form = CuidadorForm(request.POST)
         print(form['cpf_cuidador'])
         if form.is_valid():
-            sql_inserts.inserir_cuidador(form.cleaned_data)
+            ret = sql_inserts.inserir_cuidador(form.cleaned_data)
+            print(ret)
         else:
             print("invalid")
             return render(request, 'prontuarioMedico/cuidador/cuidador_novo.html', {'form': form})
-        return HttpResponseRedirect('/cuidador')
+        return HttpResponseRedirect('/cuidadores')
     else:
         form = CuidadorForm()
         return render(request, 'prontuarioMedico/cuidador/cuidador_novo.html', {'form': form})
+
+def cuidador_detalhes(request, id):
+    cuidador_tuple = sql_consultas.get_cuidador_por_cpf(id)
+    cuidador = {
+        'cpf_cuidador': cuidador_tuple[0][0],
+        'nome': cuidador_tuple[0][1],
+        'tipoCuidador': cuidador_tuple[0][2],
+        'datanascimento': cuidador_tuple[0][3],
+        'logradouro': cuidador_tuple[0][4],
+        'numero': cuidador_tuple[0][5],
+        'complemento': cuidador_tuple[0][6],
+        'bairro': cuidador_tuple[0][7],
+        'cidade': cuidador_tuple[0][8],
+        'estado': cuidador_tuple[0][9],
+        'cep': cuidador_tuple[0][10],
+        'rg': cuidador_tuple[0][11],
+    }
+    telefone_tuple = sql_consultas.get_telefone_cuidador(id)
+    telefones = []
+    for aux in telefone_tuple:
+        telefones.append({'tipo': aux[0],
+                          'telefone': aux[1] })
+    return render(request, 'prontuarioMedico/cuidador/cuidador_detalhes.html', {'pagina': 'cuidador_detalhes', 'form': cuidador, 'telefone': telefones})
 
 
 # Views de Responsavel

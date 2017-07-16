@@ -45,6 +45,13 @@ def get_paciente():
     row = cursor.fetchall()
     return row
 
+#Retorna todos pacientes que possuem 'nome' como substring (case insensitive)
+def get_pacientes_por_nome(nome ):
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM PACIENTE WHERE LOWER(nome) LIKE LOWER(\'%"+str(nome)+"%\')")
+    row = cursor.fetchall()
+    return row
+
 def get_responsabilidade():
     cursor = connection.cursor()
     cursor.execute("SELECT * FROM v_RESPONSABILIDADE")

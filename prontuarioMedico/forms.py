@@ -135,3 +135,6 @@ class CuidadorForm(forms.Form):
         widget=forms.TextInput(),
         help_text='Digite o RG.'
     )
+
+class NameForm(forms.Form):
+    nome_paciente = forms.CharField(label='nome_paciente', max_length=100)

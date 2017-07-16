@@ -25,6 +25,10 @@
                                     <th>Data Nascimento</th>
                                 </tr>
                                 </thead>
+                                <form action="/pacientes/" method="post"> {% csrf_token %}
+                                    <label for="nome-paciente">Nome do Paciente: </label>
+                                    <input id="nome-paciente" type="text" name="nome_paciente" value="{{nome_paciente}}">
+                                </form>
                                 <tbody>
                                 {% for paciente in pacientes %}
                                     <tr>

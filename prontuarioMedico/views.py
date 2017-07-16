@@ -2,7 +2,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from prontuarioMedico.data_base import sql_consultas, sql_inserts
 from .forms import CuidadorForm
-
+from .forms import NameForm
 
 def home(request):
     nro_pacientes = sql_consultas.get_qtd_pacientes()
@@ -22,19 +22,27 @@ def home(request):
 
 # Views de paciente
 def paciente_index(request):
-    pacientes_tuple = sql_consultas.get_paciente()
-    pacientes = []
 
+    if request.method == 'POST':
+        form = NameForm(request.POST)
+        if form.is_valid():
+            #retorna lista de pacientes que possuem 'nome_paciente' contido no seu nome
+            pacientes_tuple=sql_consultas.get_pacientes_por_nome(form.cleaned_data['nome_paciente'])
+    else:
+        pacientes_tuple = sql_consultas.get_paciente()
+
+    pacientes = []
     for paciente_aux in pacientes_tuple:
         pacientes.append({'id_paciente': paciente_aux[0],
                           'nome': paciente_aux[1],
                           'datanascimento': paciente_aux[2]})
 
     context_dictionary = {'pagina': 'paciente_index',
-                          'pacientes': pacientes}
-
+                         'pacientes': pacientes}
     return render(request, 'prontuarioMedico/paciente/paciente_index.html', context_dictionary)
 
+from django.shortcuts import render
+from django.http import HttpResponseRedirect
 
 # Views de Medico
 def medico_index(request):
@@ -99,5 +107,4 @@ def responsavel_responsabilidades(request):
 # Views de administrador
 def admin_index(request):
     context_dictionary = {'pagina': 'admin'}
-
     return render(request, 'prontuarioMedico/administrador/administrador.html', context_dictionary)

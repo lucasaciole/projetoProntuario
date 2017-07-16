@@ -1,16 +1,19 @@
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from prontuarioMedico.data_base import sql_consultas, sql_inserts
 from .forms import CuidadorForm
 from .forms import NameForm
 
 def home(request):
-    nro_pacientes = sql_consultas.get_qtd_pacientes()
-    nro_cuidadores = sql_consultas.get_qtd_cuidadores()
-    nro_responsabilidades = sql_consultas.get_qtd_responsabilidades()
-    qtd_atendimentos_no_ultimo_mes =sql_consultas.get_qtd_atendimento_no_ultimo_mes()
-    META_DE_ATENDIMENTOS=8
-    frac_meta_atendimento=str(int(100*qtd_atendimentos_no_ultimo_mes/META_DE_ATENDIMENTOS))
+    valores_home = sql_consultas.get_valores_home()
+    nro_pacientes = valores_home[0]
+    nro_cuidadores = valores_home[1]
+    nro_responsabilidades = valores_home[2]
+
+    qtd_atendimentos_no_ultimo_mes = sql_consultas.get_qtd_atendimento_no_ultimo_mes()
+    META_DE_ATENDIMENTOS = 8
+    frac_meta_atendimento = str(int(100 * qtd_atendimentos_no_ultimo_mes / META_DE_ATENDIMENTOS))
+
     context_dictionary = {'pagina': 'home',
                           'nro_pacientes': nro_pacientes,
                           'nro_cuidadores': nro_cuidadores,
@@ -41,8 +44,6 @@ def paciente_index(request):
                          'pacientes': pacientes}
     return render(request, 'prontuarioMedico/paciente/paciente_index.html', context_dictionary)
 
-from django.shortcuts import render
-from django.http import HttpResponseRedirect
 
 # Views de Medico
 def medico_index(request):

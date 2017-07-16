@@ -1,27 +1,31 @@
 {% extends 'prontuarioMedico/base.html' %}
 {% load staticfiles %}
 
+
 {% block title %}
-    Prontuario Médico
+    Médico
 {% endblock title %}
 
+
 {% block header %}
-    Cuidadores
+    Médicos
 {% endblock header %}
+
+
 {% block body %}
     <div class="row">
 
         <div class="col-md-12">
             <div class="card">
                 <div class="card-content">
-                    {% block cuidador_body %}
-                    {% endblock cuidador_body %}
+                    {% block medico_body %}
+                    {% endblock medico_body %}
                 </div>
             </div>
         </div>
     </div>
     <div class="fixed-action-btn horizontal click-to-toggle">
-        <a class="btn-floating btn-large waves-effect waves-light red" title="Cadastrar Novo" href="{% url 'cuidador_novo' %}"><i class="material-icons">add</i></a>
+        <a class="btn-floating btn-large waves-effect waves-light red" title="Cadastrar Novo"><i class="material-icons">add</i></a>
     </div>
 
 {% endblock body %}

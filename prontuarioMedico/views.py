@@ -6,23 +6,37 @@ from .forms import CuidadorForm
 
 def home(request):
     nro_pacientes = sql_consultas.get_qtd_pacientes()
-    nro_cuidadore = sql_consultas.get_qtd_cuidadores()
+    nro_cuidadores = sql_consultas.get_qtd_cuidadores()
+    nro_responsabilidades = sql_consultas.get_qtd_responsabilidades()
     context_dictionary = {'pagina': 'home',
                           'nro_pacientes': nro_pacientes,
-                          'nro_cuidadores': nro_cuidadore}
+                          'nro_cuidadores': nro_cuidadores,
+                          'nro_responsabilidades':nro_responsabilidades}
+
     return render(request, 'prontuarioMedico/home.html', context_dictionary)
+
 
 # Views de paciente
 def paciente_index(request):
-    context_dictionary = {'pagina': 'paciente'}
+    pacientes_tuple = sql_consultas.get_paciente()
+    pacientes = []
 
-    return render(request, 'prontuarioMedico/paciente/paciente.html', context_dictionary)
+    for paciente_aux in pacientes_tuple:
+        pacientes.append({'id_paciente': paciente_aux[0],
+                          'nome': paciente_aux[1],
+                          'datanascimento': paciente_aux[2]})
+
+    context_dictionary = {'pagina': 'paciente_index',
+                          'pacientes': pacientes}
+
+    return render(request, 'prontuarioMedico/paciente/paciente_index.html', context_dictionary)
+
 
 # Views de Medico
 def medico_index(request):
-    context_dictionary = {'pagina': 'medico'}
+    context_dictionary = {'pagina': 'medico_index'}
 
-    return render(request, 'prontuarioMedico/paciente/paciente.html', context_dictionary)
+    return render(request, 'prontuarioMedico/medico/medico_index.html', context_dictionary)
 
 
 # Views de cuidador
@@ -33,14 +47,16 @@ def cuidador_index(request):
         aux = {'cpf': cuidador_aux[0], 'nome': cuidador_aux[1], 'profissional': cuidador_aux[2]}
         cuidadores.append(aux)
 
-    context_dictionary = {'pagina': 'cuidador',
+    context_dictionary = {'pagina': 'cuidador_index',
                           'cuidadores': cuidadores}
 
     return render(request, 'prontuarioMedico/cuidador/cuidador_index.html', context_dictionary)
 
+
 def cuidador_contratos(request):
     print('entrou na contratos')
     return render(request, 'prontuarioMedico/cuidador/cuidador_contratos.html')
+
 
 def cuidador_novo(request):
     if request.method == 'POST':
@@ -58,10 +74,22 @@ def cuidador_novo(request):
 
 
 # Views de Responsavel
-def responsavel_index(request):
-    context_dictionary = {'pagina': 'responsavel'}
+def responsavel_responsabilidades(request):
+    responsabilidades_tuple = sql_consultas.get_responsabilidade()
+    responsabilidades = []
+    for responsabilidade in responsabilidades_tuple:
+        responsabilidades.append({'id_paciente': responsabilidade[0],
+                                  'nome_paciente': responsabilidade[1],
+                                  'id_responsavel': responsabilidade[2],
+                                  'nome_responsavel': responsabilidade[3],
+                                  'grau_parentesco': responsabilidade[4],
+                                  'prioridade': responsabilidade[5],
+                                  'status': responsabilidade[6]})
 
-    return render(request, 'prontuarioMedico/responsavel/responsavel.html', context_dictionary)
+    context_dictionary = {'pagina': 'responsabilidades',
+                          'responsabilidades': responsabilidades}
+
+    return render(request, 'prontuarioMedico/responsavel/responsabilidades.html', context_dictionary)
 
 
 # Views de administrador
@@ -69,4 +97,3 @@ def admin_index(request):
     context_dictionary = {'pagina': 'admin'}
 
     return render(request, 'prontuarioMedico/administrador/administrador.html', context_dictionary)
-

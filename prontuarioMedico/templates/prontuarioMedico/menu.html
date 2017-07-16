@@ -8,49 +8,80 @@
                    href="{% url 'home' %}"><i class="fa fa-bar-chart-o"></i>
                     Página Inicial</a>
             </li>
-            <li>
-                <a href="{% url 'paciente' %}"
-                   class="{% if pagina == 'paciente' %}active-menu{% endif %} waves-effect waves-dark"><i
-                        class="fa fa-user"></i> Paciente</a>
-            </li>
-            {#            <li>#}
-            {#                <a href="{% url 'medico' %}"#}
-            {#                   class="{% if pagina == 'medico' %}active-menu{% endif %} waves-effect waves-dark"><i#}
-            {#                        class="fa fa-stethoscope"></i> Médico</a>#}
-            {#            </li>#}
 
             <li>
-            <a href="#" class="waves-effect waves-dark"><i class="fa fa-eye"></i> Cuidador<span class="fa arrow"></span></a>
-            <ul class="nav nav-second-level">
-                <li>
-                    <a href="{% url 'cuidador' %}" class="waves-effect waves-dark"
-                        class="{% if pagina == 'cuidador' %}active-menu{% endif %} "><i class="fa fa-list-ul"></i>Lista de Cuidadores</a>
-                </li>
-                <li>
-                    <a href="{% url 'cuidador_contratos' %}" class="waves-effect waves-dark"
-                        class="{% if pagina == 'cuidador_contratos' %}active-menu{% endif %} "> <i class="fa fa-gavel"></i> Contratos</a>
-                </li>
-            </ul>
+                <a href="#" class="waves-effect waves-dark"><i
+                        class="fa fa-user"></i> Paciente<span
+                        class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a href="{% url 'paciente_index' %}"
+                           class="{% if pagina == 'paciente_index' %}active-menu{% endif %} waves-effect waves-dark"
+                        ><i class="fa fa-list-ul"></i>Lista
+                            de Pacientes</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="#" class="waves-effect waves-dark"><i
+                        class="fa fa-stethoscope"></i> Médico<span
+                        class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a href="{% url 'medico_index' %}"
+                           class="{% if pagina == 'medico_index' %}active-menu{% endif %} waves-effect waves-dark"
+                        ><i class="fa fa-list-ul"></i>Lista
+                            de Médicos</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="#" class="waves-effect waves-dark"><i class="fa fa-eye"></i> Cuidador<span
+                        class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a href="{% url 'cuidador_index' %}"
+                           class="{% if pagina == 'cuidador_index' %}active-menu{% endif %} waves-effect waves-dark"><i
+                                class="fa fa-list-ul"></i>Lista
+                            de Cuidadores</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'cuidador_contratos' %}"
+                           class="{% if pagina == 'cuidador_contratos' %}active-menu{% endif %} waves-effect waves-dark">
+                            <i class="fa fa-gavel"></i> Contratos</a>
+                    </li>
+                </ul>
             </li>
 
 
             <li>
-                <a href="{% url 'responsavel' %}"
-                   class="{% if pagina == 'responsavel' %}active-menu{% endif %} waves-effect waves-dark"><i
-                        class="fa fa-male"></i> Responsavel</a>
+                <a href="#" class="waves-effect waves-dark"><i
+                        class="fa fa-male"></i> Responsável<span
+                        class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a href="{% url 'responsabilidades' %}"
+                           class="{% if pagina == 'responsabilidades' %}active-menu{% endif %}  waves-effect waves-dark"><i
+                                class="fa fa-list-ul"></i>Lista
+                            de Responsabilidades</a>
+                    </li>
+                </ul>
             </li>
 
-{#            <li>#}
-{#                <a href="{% url 'locais' %}"#}
-{#                   class="{% if pagina == 'locais' %}active-menu{% endif %} waves-effect waves-dark"><i#}
-{#                        class="fa fa-map-marker"></i> Locais</a>#}
-{#            </li>#}
             <li>
-                <a href="{% url 'admin' %}"
-                   class="{% if pagina == 'admin' %}active-menu{% endif %} waves-effect waves-dark"><i
-                        class="fa fa-eye"></i> Administrador</a>
+                <a href="#" class="waves-effect waves-dark"><i
+                        class="fa fa-eye"></i> Administrador<span
+                        class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a href="#"
+                           class="{% if pagina == '?' %}active-menu{% endif %}  waves-effect waves-dark"><i
+                                class="fa fa-list-ul"></i>Opção 1</a>
+                    </li>
+                </ul>
             </li>
-
         </ul>
     </div>
 </nav>

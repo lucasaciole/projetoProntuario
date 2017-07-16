@@ -1,90 +1,113 @@
-{% extends 'prontuarioMedico/cuidador/cuidador.html' %}
+{% extends 'prontuarioMedico/base.html' %}
 {% load staticfiles %}
-{% block cuidador_body %}
-<form action="." method="POST" id="cria_cuidador">{% csrf_token %}
-    <div class="row">
-        <div class="input-field col s8">
-            <label for="id_nome">Nome</label>
-            {{ form.nome }}
-        </div>
-    </div>
-    <div class="row">
-        <div class="input-field col s4">
-            <label for="id_cpf_cuidador">CPF</label>
-            {{ form.cpf_cuidador }}
-        </div>
-        <div class="input-field col s4">
-            <label for="id_rg">RG</label>
-            {{ form.rg }}
-        </div>
-    </div>
-    <div class="row">
-        <div class="input-field col s4">
-            <label for="id_datanascimento">Data Nascimento</label>
-            <input type="date" class="datepicker" name="datanascimento" id="id_datanascimento" required>
-        </div>
-        <div class="input-field col s4">
-            {{ form.tipoCuidador }}
-        </div>
-    </div>
-    <div class="row">
-        <div class="input-field col s4">
-            <label for="id_logradouro">Logradouro</label>
-            {{ form.logradouro }}
-        </div>
-        <div class="input-field col s1">
-            <label for="id_numero">Número</label>
-            {{ form.numero }}
-        </div>
-        <div class="input-field col s4">
-            <label for="id_bairro">Bairro</label>
-            {{ form.bairro }}
-        </div>
-                <div class="input-field col s3">
-            <label for="id_complemento">Complemento</label>
-            {{ form.complemento }}
-        </div>
-    </div>
-    <div class="row">
-        <div class="input-field col s4">
-            <label for="id_cep">CEP</label>
-            {{ form.cep }}
-    </div>
-        <div class="input-field col s4">
-            <label for="id_cidade">Cidade</label>
-            {{ form.cidade }}
-        </div>
-        <div class="input-field col s4">
-            {{ form.estado }}
-        </div>
-    </div>
-    <div class="row" align="right">
-          <button class="btn waves-effect waves-light" type="button" value="Submit" onclick="RemoveMaskAndSubmit()">Cadastrar
-        <i class="material-icons right">send</i>
-  </button>
-    </div>
-{{ form.errors }}
-</form>
 
-{% endblock %}
+{% block title %}
+    Prontuario Médico
+{% endblock title %}
+
+{% block header %}
+    Cadastro de Cuidador
+{% endblock header %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-content">
+                    <form action="." method="POST" id="cria_cuidador">{% csrf_token %}
+                        <div class="row">
+                            <div class="input-field col s8">
+                                <label for="id_nome">Nome</label>
+                                {{ form.nome }}
+                            </div>
+
+                            <div class="input-field col s4">
+                                {{ form.tipoCuidador }}
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s4">
+                                <label for="id_datanascimento">Data Nascimento</label>
+                                <input type="date" class="datepicker" name="datanascimento" id="id_datanascimento"
+                                       required>
+                            </div>
+
+                            <div class="input-field col s4">
+                                <label for="id_cpf_cuidador">CPF</label>
+                                {{ form.cpf_cuidador }}
+                            </div>
+
+                            <div class="input-field col s4">
+                                <label for="id_rg">RG</label>
+                                {{ form.rg }}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s4">
+                                <label for="id_logradouro">Logradouro</label>
+                                {{ form.logradouro }}
+                            </div>
+                            <div class="input-field col s1">
+                                <label for="id_numero">Número</label>
+                                {{ form.numero }}
+                            </div>
+                            <div class="input-field col s4">
+                                <label for="id_bairro">Bairro</label>
+                                {{ form.bairro }}
+                            </div>
+                            <div class="input-field col s3">
+                                <label for="id_complemento">Complemento</label>
+                                {{ form.complemento }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s4">
+                                <label for="id_cep">CEP</label>
+                                {{ form.cep }}
+                            </div>
+                            <div class="input-field col s4">
+                                <label for="id_cidade">Cidade</label>
+                                {{ form.cidade }}
+                            </div>
+                            <div class="input-field col s4">
+                                {{ form.estado }}
+                            </div>
+                        </div>
+                        <div class="row" align="right">
+                            <button class="btn waves-effect waves-light" type="button" value="Submit"
+                                    onclick="RemoveMaskAndSubmit()">
+                                Cadastrar
+                                <i class="material-icons right">send</i>
+                            </button>
+                        </div>
+                        {{ form.errors }}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock body %}
 
 {% block extra_scripts %}
     <script>
         $('select').material_select();
-  </script>
+    </script>
     <script>
-     $('.datepicker').pickadate({
-        selectMonths: true, // Creates a dropdown to control month
-        selectYears: 160, // Creates a dropdown of 80 years to control year
-        format: 'yyyy-mm-dd'
-     });
+        $('.datepicker').pickadate({
+            selectMonths: true, // Creates a dropdown to control month
+            selectYears: 160, // Creates a dropdown of 80 years to control year
+            format: 'yyyy-mm-dd'
+        });
     </script>
 
     <script type="text/javascript">
-    function RemoveMaskAndSubmit() {
-        $("#cpf").mask('00000000000');
-        $("#id_cep").mask('00000000');
-        $('#cria_cuidador').submit();
-    }
-</script>
+        function RemoveMaskAndSubmit() {
+            $("#cpf").mask('00000000000');
+            $("#id_cep").mask('00000000');
+            $('#cria_cuidador').submit();
+        }
+    </script>
 {% endblock extra_scripts %}

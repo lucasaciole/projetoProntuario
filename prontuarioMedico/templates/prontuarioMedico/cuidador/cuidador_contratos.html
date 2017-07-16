@@ -1,4 +1,4 @@
-{% extends 'prontuarioMedico/cuidador/cuidador.html' %}
+{% extends 'prontuarioMedico/base.html' %}
 {% load staticfiles %}
 
 {% block title %}
@@ -6,11 +6,18 @@
 {% endblock title %}
 
 {% block header %}
-    Cuidadores
+    Contratos de Cuidado
 {% endblock header %}
-{% block cuidador_body %}
+{% block body %}
     <div class="row">
-        <p>Contratos rs</p>
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-content">
+                    <div class="row">
+                        <p>Contratos rs</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
-{% endblock cuidador_body %}
+{% endblock body %}

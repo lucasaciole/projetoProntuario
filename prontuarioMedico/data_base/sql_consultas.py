@@ -26,8 +26,27 @@ def get_qtd_cuidadores():
     row = cursor.fetchall()
     return row[0][0]
 
+def get_qtd_responsabilidades():
+    cursor = connection.cursor()
+    cursor.execute("SELECT COUNT(id_paciente) FROM v_Responsabilidade")
+    row = cursor.fetchall()
+    return row[0][0]
+
+# Consultas de tabelas
 def get_cuidador():
     cursor = connection.cursor()
     cursor.execute("SELECT * FROM V_CUIDADOR")
+    row = cursor.fetchall()
+    return row
+
+def get_paciente():
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM PACIENTE")
+    row = cursor.fetchall()
+    return row
+
+def get_responsabilidade():
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM v_RESPONSABILIDADE")
     row = cursor.fetchall()
     return row

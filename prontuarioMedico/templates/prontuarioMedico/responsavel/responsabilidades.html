@@ -1,0 +1,58 @@
+{% extends 'prontuarioMedico/base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    Responsavel
+{% endblock title %}
+
+{% block header %}
+    Responsabilidades
+{% endblock header %}
+
+{% block body %}
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-content">
+                    <div class="table-responsive">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                <thead>
+                                <tr>
+                                    <th>ID do Paciente</th>
+                                    <th>Nome do Paciente</th>
+                                    <th>ID do Responsável</th>
+                                    <th>Nome do Responsável</th>
+                                    <th>Grau de Parentesco</th>
+                                    <th>Prioridade</th>
+                                    <th>Status</th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                {% for responsabilidade in responsabilidades %}
+                                    <tr>
+                                        <td>{{ responsabilidade.id_paciente }}</td>
+                                        <td>{{ responsabilidade.nome_paciente }}</td>
+                                        <td>{{ responsabilidade.id_responsavel }}</td>
+                                        <td>{{ responsabilidade.nome_responsavel }}</td>
+                                        <td>{{ responsabilidade.grau_parentesco }}</td>
+                                        <td>{{ responsabilidade.prioridade }}</td>
+                                        <td>{{ responsabilidade.status }}</td>
+                                    </tr>
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed-action-btn horizontal click-to-toggle">
+        <a class="btn-floating btn-large waves-effect waves-light red" title="Cadastrar Novo"><i class="material-icons">add</i></a>
+    </div>
+{% endblock body %}

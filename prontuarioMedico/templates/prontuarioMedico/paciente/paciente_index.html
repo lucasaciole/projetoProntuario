@@ -2,15 +2,16 @@
 {% load staticfiles %}
 
 {% block title %}
-    Prontuario Médico
+    Paciente
 {% endblock title %}
 
 {% block header %}
-    Cuidadores
+    Pacientes
 {% endblock header %}
 
 {% block body %}
     <div class="row">
+
         <div class="col-md-12">
             <div class="card">
                 <div class="card-content">
@@ -19,17 +20,17 @@
                             <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
                                 <tr>
-                                    <th>CPF</th>
+                                    <th>ID</th>
                                     <th>Nome</th>
-                                    <th>Profissional</th>
+                                    <th>Data Nascimento</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {% for cuidador in cuidadores %}
+                                {% for paciente in pacientes %}
                                     <tr>
-                                        <td>{{ cuidador.cpf }}</td>
-                                        <td>{{ cuidador.nome }}</td>
-                                        <td>{% if cuidador.profissional == 'p' %} Sim {% else %} Não {% endif %}</td>
+                                        <td>{{ paciente.id_paciente }}</td>
+                                        <td>{{ paciente.nome }}</td>
+                                        <td>{{ paciente.datanascimento }}</td>
                                     </tr>
                                 {% endfor %}
 
@@ -41,9 +42,8 @@
             </div>
         </div>
     </div>
-    <div class="fixed-action-btn horizontal click-to-toggle">
-        <a class="btn-floating btn-large waves-effect waves-light red" title="Cadastrar Novo"
-           href="{% url 'cuidador_novo' %}"><i class="material-icons">add</i></a>
-    </div>
 
+    <div class="fixed-action-btn horizontal click-to-toggle">
+        <a class="btn-floating btn-large waves-effect waves-light red" title="Cadastrar Novo"><i class="material-icons">add</i></a>
+    </div>
 {% endblock body %}

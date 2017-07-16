@@ -8,10 +8,14 @@ def home(request):
     nro_pacientes = sql_consultas.get_qtd_pacientes()
     nro_cuidadores = sql_consultas.get_qtd_cuidadores()
     nro_responsabilidades = sql_consultas.get_qtd_responsabilidades()
+    qtd_atendimentos_no_ultimo_mes =sql_consultas.get_qtd_atendimento_no_ultimo_mes()
+    META_DE_ATENDIMENTOS=8
+    frac_meta_atendimento=str(int(100*qtd_atendimentos_no_ultimo_mes/META_DE_ATENDIMENTOS))
     context_dictionary = {'pagina': 'home',
                           'nro_pacientes': nro_pacientes,
                           'nro_cuidadores': nro_cuidadores,
-                          'nro_responsabilidades':nro_responsabilidades}
+                          'nro_responsabilidades':nro_responsabilidades,
+                          'frac_meta_atendimento':frac_meta_atendimento}
 
     return render(request, 'prontuarioMedico/home.html', context_dictionary)
 

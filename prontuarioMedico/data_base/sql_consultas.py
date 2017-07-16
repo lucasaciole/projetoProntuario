@@ -50,3 +50,15 @@ def get_responsabilidade():
     cursor.execute("SELECT * FROM v_RESPONSABILIDADE")
     row = cursor.fetchall()
     return row
+import datetime
+
+#Retorna quantidade de atendimentos que ocorreram nos
+#ultimos trinta dias
+
+def get_qtd_atendimento_no_ultimo_mes():
+    today = datetime.date.today()
+    lastMonth = today - datetime.timedelta(days=30)
+    cursor = connection.cursor()
+    cursor.execute("SELECT COUNT(id_atendimentocuidador) FROM atendimentocuidador WHERE atendimentocuidador.datahorainicio > \'"+str(lastMonth.year)+"-"+str(lastMonth.month)+"-"+str(lastMonth.day)+"\'::timestamp without time zone")
+    row = cursor.fetchall()
+    return row[0][0]

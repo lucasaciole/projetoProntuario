@@ -5,13 +5,13 @@ from .forms import CuidadorForm
 from .forms import NameForm
 
 def home(request):
+    META_DE_ATENDIMENTOS = 8 # Meta de atendimentos dentro do periodo de um mês
+
     valores_home = sql_consultas.get_valores_home()
     nro_pacientes = valores_home[0]
     nro_cuidadores = valores_home[1]
     nro_responsabilidades = valores_home[2]
-
     qtd_atendimentos_no_ultimo_mes = sql_consultas.get_qtd_atendimento_no_ultimo_mes()
-    META_DE_ATENDIMENTOS = 8
     frac_meta_atendimento = str(int(100 * qtd_atendimentos_no_ultimo_mes / META_DE_ATENDIMENTOS))
 
     context_dictionary = {'pagina': 'home',
@@ -30,7 +30,9 @@ def paciente_index(request):
         form = NameForm(request.POST)
         if form.is_valid():
             #retorna lista de pacientes que possuem 'nome_paciente' contido no seu nome
-            pacientes_tuple=sql_consultas.get_pacientes_por_nome(form.cleaned_data['nome_paciente'])
+            pacientes_tuple = sql_consultas.get_pacientes_por_nome(form.cleaned_data['nome_paciente'])
+        else:
+            pacientes_tuple = sql_consultas.get_paciente()
     else:
         pacientes_tuple = sql_consultas.get_paciente()
 

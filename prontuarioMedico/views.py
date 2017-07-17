@@ -4,32 +4,34 @@ from prontuarioMedico.data_base import sql_consultas, sql_inserts
 from .forms import CuidadorForm
 from .forms import NameForm
 
+
 def home(request):
-    META_DE_ATENDIMENTOS = 8 # Meta de atendimentos dentro do periodo de um mês
+    META_DE_ATENDIMENTOS = 8  # Meta de atendimentos dentro do periodo de um mês
 
     valores_home = sql_consultas.get_valores_home()
     nro_pacientes = valores_home[0]
-    nro_cuidadores = valores_home[1]
-    nro_responsabilidades = valores_home[2]
+    nro_medicos = valores_home[1]
+    nro_cuidadores = valores_home[2]
+    nro_responsabilidades = valores_home[3]
     qtd_atendimentos_no_ultimo_mes = sql_consultas.get_qtd_atendimento_no_ultimo_mes()
     frac_meta_atendimento = str(int(100 * qtd_atendimentos_no_ultimo_mes / META_DE_ATENDIMENTOS))
 
     context_dictionary = {'pagina': 'home',
                           'nro_pacientes': nro_pacientes,
                           'nro_cuidadores': nro_cuidadores,
-                          'nro_responsabilidades':nro_responsabilidades,
-                          'frac_meta_atendimento':frac_meta_atendimento}
+                          'nro_medicos':nro_medicos,
+                          'nro_responsabilidades': nro_responsabilidades,
+                          'frac_meta_atendimento': frac_meta_atendimento}
 
     return render(request, 'prontuarioMedico/home.html', context_dictionary)
 
 
 # Views de paciente
 def paciente_index(request):
-
     if request.method == 'POST':
         form = NameForm(request.POST)
         if form.is_valid():
-            #retorna lista de pacientes que possuem 'nome_paciente' contido no seu nome
+            # retorna lista de pacientes que possuem 'nome_paciente' contido no seu nome
             pacientes_tuple = sql_consultas.get_pacientes_por_nome(form.cleaned_data['nome_paciente'])
         else:
             pacientes_tuple = sql_consultas.get_paciente()
@@ -43,7 +45,7 @@ def paciente_index(request):
                           'datanascimento': paciente_aux[2]})
 
     context_dictionary = {'pagina': 'paciente_index',
-                         'pacientes': pacientes}
+                          'pacientes': pacientes}
     return render(request, 'prontuarioMedico/paciente/paciente_index.html', context_dictionary)
 
 
@@ -157,7 +159,25 @@ def cuidador_detalhes(request, id):
             'entidadedeclasse': profissional_tuple[0][1],
             'numeroentidadedeclasse': profissional_tuple[0][2]
         }
-    return render(request, 'prontuarioMedico/cuidador/cuidador_detalhes.html', {'pagina': 'cuidador_detalhes', 'form': cuidador, 'telefone': telefones, 'profissional': profissional})
+    return render(request, 'prontuarioMedico/cuidador/cuidador_detalhes.html',
+                  {'pagina': 'cuidador_detalhes', 'form': cuidador, 'telefone': telefones})
+
+
+def cuidador_atendimentos(request):
+    atendimentos_tuple = sql_consultas.get_atendimentos()
+    atendimentos = []
+    for atendimento in atendimentos_tuple:
+        atendimentos.append({'id': atendimento[0],
+                             'horario_inicio': atendimento[1],
+                             'horario_fim': atendimento[2],
+                             'cpf_cuidador': atendimento[3],
+                             'nome_cuidador': atendimento[4],
+                             'cpf_paciente': atendimento[5],
+                             'nome_paciente': atendimento[6]})
+
+    context_dictionary = {'pagina': 'cuidador_atendimentos',
+                          'atendimentos': atendimentos}
+    return render(request, 'prontuarioMedico/cuidador/cuidador_atendimentos.html', context_dictionary)
 
 
 # Views de Responsavel

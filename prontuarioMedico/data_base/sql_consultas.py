@@ -46,8 +46,11 @@ def get_paciente():
 
 # Retorna todos pacientes que possuem 'nome' como substring (case insensitive)
 def get_pacientes_por_nome(nome):
+
     cursor = connection.cursor()
-    cursor.execute("SELECT * FROM PACIENTE WHERE LOWER(nome) LIKE LOWER(\'%" + str(nome) + "%\')")
+    sqlquery ="SELECT * FROM PACIENTE WHERE LOWER(nome) LIKE LOWER(%s);"
+    params = "%"+str(nome)+"%"
+    cursor.execute(sqlquery, (params,))
     row = cursor.fetchall()
     return row
 
@@ -66,12 +69,12 @@ import datetime
 # ultimos trinta dias
 
 def get_qtd_atendimento_no_ultimo_mes():
-    today = datetime.date.today()
+    today = datetime.datetime.now()
     lastMonth = today - datetime.timedelta(days=30)
+
     cursor = connection.cursor()
-    cursor.execute(
-        "SELECT COUNT(id_atendimentocuidador) FROM atendimentocuidador WHERE atendimentocuidador.datahorainicio > \'" + str(
-            lastMonth.year) + "-" + str(lastMonth.month) + "-" + str(lastMonth.day) + "\'::timestamp without time zone")
+    sqlquery= "SELECT COUNT(id_atendimentocuidador) FROM atendimentocuidador WHERE atendimentocuidador.datahorainicio > %s::timestamp without time zone;"
+    cursor.execute(sqlquery, (lastMonth,))
     row = cursor.fetchall()
     return row[0][0]
 

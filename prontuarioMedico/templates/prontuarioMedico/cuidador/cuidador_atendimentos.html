@@ -2,16 +2,15 @@
 {% load staticfiles %}
 
 {% block title %}
-    Paciente
+    Prontuario Médico
 {% endblock title %}
 
 {% block header %}
-    Pacientes
+    Atendimentos de Cuidadores
 {% endblock header %}
 
 {% block body %}
     <div class="row">
-
         <div class="col-md-12">
             <div class="card">
                 <div class="card-content">
@@ -21,29 +20,29 @@
                                 <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Nome</th>
-                                    <th>Data Nascimento</th>
+                                    <th>Horario Inicial</th>
+                                    <th>Horario Final</th>
+                                    <th>CPF Cuidador</th>
+                                    <th>Nome Cuidador</th>
+                                    <th>CPF Paciente</th>
+                                    <th>Nome Paciente</th>
                                     <th>Detalhes</th>
                                 </tr>
                                 </thead>
-                                <form action="{% url 'paciente_index' %}" method="post"> {% csrf_token %}
-                                    <div class="input-field col s4">
-                                        <label for="nome-paciente">Nome do Paciente: </label>
-                                        <input id="nome-paciente" type="text" name="nome_paciente"
-                                               value="{{ nome_paciente }}">
-                                    </div>
-                                </form>
                                 <tbody>
-                                {% for paciente in pacientes %}
+                                {% for atendimento in atendimentos %}
                                     <tr>
-                                        <td>{{ paciente.id_paciente }}</td>
-                                        <td>{{ paciente.nome }}</td>
-                                        <td>{{ paciente.datanascimento }}</td>
+                                        <td>{{ atendimento.id }}</td>
+                                        <td>{{ atendimento.horario_inicio }}</td>
+                                        <td>{{ atendimento.horario_fim }}</td>
+                                        <td>{{ atendimento.cpf_cuidador }}</td>
+                                        <td>{{ atendimento.nome_cuidador }}</td>
+                                        <td>{{ atendimento.cpf_paciente }}</td>
+                                        <td>{{ atendimento.nome_paciente }}</td>
                                         <td>
-                                            <div align="center"><a href="#"><i
+                                            <div align="center"><a href=""><i
                                                     class="fa fa-search"></i></a></div>
                                         </td>
-
                                     </tr>
                                 {% endfor %}
 
@@ -57,6 +56,8 @@
     </div>
 
     <div class="fixed-action-btn horizontal click-to-toggle">
-        <a class="btn-floating btn-large waves-effect waves-light red" title="Cadastrar Novo"><i class="material-icons">add</i></a>
+        <a class="btn-floating btn-large waves-effect waves-light red" title="Cadastrar Novo"
+           href="#"><i class="material-icons">add</i></a>
     </div>
+
 {% endblock body %}

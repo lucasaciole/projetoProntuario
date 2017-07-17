@@ -36,6 +36,7 @@
                         </div>
                         {% if form.tipo_cuidador == 'p' %}
                             <div class="row">
+                            <div style="width:67%; margin: 0 auto">
                              <div class="input-field col s4">
                                 <label class="active" for="id_entidade">Entidade</label>
                                 <input id="id_entidade" type="text" value="{{ profissional.entidadedeclasse }}" disabled>
@@ -43,6 +44,7 @@
                             <div class="input-field col s4">
                                 <label class="active" for="id_nroentidade">Numero de Registro</label>
                                 <input id="id_nroentidade" type="text" value="{{ profissional.numeroentidadedeclasse }}" disabled>
+                            </div>
                             </div>
                             </div>
                         {% endif %}

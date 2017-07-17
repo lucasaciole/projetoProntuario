@@ -1,6 +1,6 @@
 from django import forms
-from django.core import validators
 from django.utils.datetime_safe import datetime
+from prontuarioMedico.data_base import sql_consultas
 
 choices_profissional = (
     ('n', 'Nao Profissional'),
@@ -36,6 +36,27 @@ choices_estado  = (
     ('SE', 'Sergipe'),
     ('TO', 'Tocantins'),
 )
+
+def choices_cpf_cuidador():
+    cuidador_tuple = sql_consultas.get_cuidador()
+    cuidador_list = []
+    for cuidador_aux in cuidador_tuple:
+        aux = []
+        aux.append(cuidador_aux[0])
+        aux.append(cuidador_aux[1] + " (cpf: " + cuidador_aux[0] + ")")
+        cuidador_list.append(tuple(aux))
+    return tuple(cuidador_list)
+
+def choices_cpf_paciente():
+    paciente_tuple = sql_consultas.get_pacienteadulto()
+    paciente_list = []
+    for paciente_aux in paciente_tuple:
+        aux = []
+        aux.append(paciente_aux[0])
+        pc_tuple = sql_consultas.get_paciente_by_id(paciente_aux[2])
+        aux.append(pc_tuple[1]+ " (cpf: " + str(paciente_aux[0]) + ")")
+        paciente_list.append(tuple(aux))
+    return tuple(paciente_list)
 
 class CuidadorForm(forms.Form):
     cpf_cuidador = forms.CharField(
@@ -138,3 +159,43 @@ class CuidadorForm(forms.Form):
 
 class NameForm(forms.Form):
     nome_paciente = forms.CharField(label='nome_paciente', max_length=100)
+
+class ContratoForm(forms.Form):
+    cpf_cuidador = forms.ChoiceField(
+        label='CPF do Cuidador',
+        choices=choices_cpf_cuidador(),
+        error_messages={
+            'required': 'Selecione o cuidador'
+        },
+        help_text='Selecione o Cuidador.'
+    )
+    cpf_paciente = forms.ChoiceField(
+        label='CPF do Paciente',
+        choices=choices_cpf_paciente(),
+        error_messages = {
+            'required': 'Selecione o paciente'
+        },
+        help_text = 'Selecione o Paciente.'
+    )
+    datainicio = forms.CharField(
+        widget= forms.TextInput(attrs={'placeholder': 'dd/mm/aaaa'}),
+        label='Data de Inicio'
+    )
+    datafim = forms.CharField(
+        widget=forms.TextInput(attrs={'placeholder': 'dd/mm/aaaa'}),
+        label = 'Data de Fim'
+    )
+    tipoatendimento = forms.CharField(
+        label = 'Tipo de atendimento',
+        widget = forms.TextInput(attrs={'placeholder': '"Cuidados especiais", "Buscar no hospital", etc'}),
+
+    )
+    diavencimento = forms.CharField(
+        label = 'Dia vencimento'
+    )
+    valoratendimento = forms.CharField(
+        label = 'Valor do contrato'
+    )
+    periodicidade = forms.CharField(
+        label = 'Periodicidade'
+    )

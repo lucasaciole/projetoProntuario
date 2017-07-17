@@ -94,3 +94,15 @@ def get_atendimentos():
     cursor.execute("SELECT * FROM v_DetalheAtendimentoCuidador")
     row = cursor.fetchall()
     return row
+
+def get_pacienteadulto():
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM pacienteadulto")
+    row = cursor.fetchall()
+    return row
+
+def get_paciente_by_id(id):
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM PACIENTE WHERE id_paciente = %s", (id,))
+    row = cursor.fetchall()
+    return row[0]

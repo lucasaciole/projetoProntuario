@@ -3,6 +3,7 @@ from django.shortcuts import render
 from prontuarioMedico.data_base import sql_consultas, sql_inserts
 from .forms import CuidadorForm
 from .forms import NameForm
+from .forms import ContratoForm
 
 
 def home(request):
@@ -163,6 +164,20 @@ def cuidador_detalhes(request, id):
                   {'pagina': 'cuidador_detalhes', 'form': cuidador, 'telefone': telefones})
 
 
+def cuidador_contrato_novo(request):
+    if request.method == 'POST':
+        form = ContratoForm(request.POST)
+        if form.is_valid():
+            ret = sql_inserts.inserir_contrato(form.cleaned_data)
+            print(ret)
+        else:
+            return render(request, 'prontuarioMedico/cuidador/cuidador_contratos_novo.html', {'pagina': 'cuidador_contratos', 'form': form})
+        return HttpResponseRedirect('/cuidador/contratos/')
+    else:
+        form = ContratoForm()
+        return render(request, 'prontuarioMedico/cuidador/cuidador_contratos_novo.html', {'pagina': 'cuidador_contratos' ,'form': form})
+
+
 def cuidador_atendimentos(request):
     atendimentos_tuple = sql_consultas.get_atendimentos()
     atendimentos = []
@@ -198,6 +213,9 @@ def responsavel_responsabilidades(request):
 
     return render(request, 'prontuarioMedico/responsavel/responsabilidades.html', context_dictionary)
 
+
+def cuidador_planos(request):
+    pass
 
 # Views de administrador
 def admin_index(request):

@@ -1,0 +1,94 @@
+{% extends 'prontuarioMedico/base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    Prontuario Médico
+{% endblock title %}
+
+{% block header %}
+    Cadastro de Contrato
+{% endblock header %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-content">
+                    <form action="." method="POST" id="cria_contrato">{% csrf_token %}
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <label for="id_cpf_cuidador">Cuidador: </label>
+                                {{ form.cpf_cuidador }}
+                            </div>
+
+                            <div class="input-field col s6">
+                                <label for="id_cpf_paciente">Paciente:</label>
+                                {{ form.cpf_paciente }}
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s2">
+                                <label for="id_datainicio">Data inicio</label>
+                                {{ form.datainicio }}
+                            </div>
+
+                            <div class="input-field col s2">
+                                <label for="id_datafim">Data fim</label>
+                                {{ form.datafim }}
+                            </div>
+
+                            <div class="input-field col s8">
+                                <label for="id_tipoatendimento">Tipo de atendimento</label>
+                                {{ form.tipoatendimento }}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s2">
+                                <label for="id_diavencimento">Dia Vencimento</label>
+                                {{ form.diavencimento }}
+                            </div>
+                            <div class="input-field col s2">
+                                <label for="id_valoratendimento">Valor</label>
+                                {{ form.valoratendimento }}
+                            </div>
+                            <div class="input-field col s4">
+                                <label for="id_periodicidade">Periodicidade</label>
+                                {{ form.periodicidade }}
+                            </div>
+                        </div>
+                        <div class="row" align="right">
+                            <button class="btn waves-effect waves-light" type="button" value="Submit"
+                                    onclick="RemoveMaskAndSubmit()">
+                                Cadastrar
+                                <i class="material-icons right">send</i>
+                            </button>
+                        </div>
+                        {{ form.errors }}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock body %}
+
+{% block extra_scripts %}
+    <script>
+        $('select').material_select();
+        $('label').addClass('active');
+        $("#id_datainicio").mask('00/00/0000');
+        $("#id_datafim").mask('00/00/0000');
+{#        $("#id_cpf_cuidador").mask('000.000.000-00');#}
+{#        $("#id_cpf_paciente").mask('000.000.000-00');#}
+    </script>
+
+    <script type="text/javascript">
+        function RemoveMaskAndSubmit() {
+{#            $("#id_cpf_cuidador").mask('00000000000');#}
+{#            $("#id_cpf_paciente").mask('00000000000');#}
+            $('#cria_contrato').submit();
+        }
+    </script>
+{% endblock extra_scripts %}

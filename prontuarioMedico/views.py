@@ -75,18 +75,43 @@ def cuidador_contratos(request):
         contratos.append({'id_contrato': contrato_aux[0],
                'cpf_cuidador': contrato_aux[1],
                'nome_cuidador': contrato_aux[2],
-               'cpf_paciente': contrato_aux[3],
-               'nome_paciente': contrato_aux[4],
-               'data_inicio': contrato_aux[5],
-               'data_fim': contrato_aux[6],
-               'tipo_atendimento': contrato_aux[7],
-               'dia_vencimento': contrato_aux[8],
-               'valor_atendimento': contrato_aux[9],
-               'periodicidade': contrato_aux[10]
+               'cpf_paciente': contrato_aux[4],
+               'nome_paciente': contrato_aux[5],
+               'data_inicio': contrato_aux[6],
+               'data_fim': contrato_aux[7],
+               'tipo_atendimento': contrato_aux[8],
+               'dia_vencimento': contrato_aux[9],
+               'valor_atendimento': contrato_aux[10],
+               'periodicidade': contrato_aux[11]
                })
-    context_dictionary = {'pagina': 'contratos',
+    context_dictionary = {'pagina': 'cuidador_contratos',
                           'contratos': contratos}
     return render(request, 'prontuarioMedico/cuidador/cuidador_contratos.html', context_dictionary)
+
+def cuidador_contrato_detalhes(request, id):
+    contrato_aux = sql_consultas.get_contratos_por_id(id)
+    contrato = {
+        'cpf_cuidador': contrato_aux[0][1],
+        'nome_cuidador': contrato_aux[0][2],
+        'tipo_cuidador':contrato_aux[0][3],
+        'cpf_paciente': contrato_aux[0][4],
+        'nome_paciente': contrato_aux[0][5],
+        'data_inicio': contrato_aux[0][6],
+        'data_fim': contrato_aux[0][7],
+        'tipo_atendimento': contrato_aux[0][8],
+        'dia_vencimento': contrato_aux[0][9],
+        'valor_atendimento': contrato_aux[0][10],
+        'periodicidade': contrato_aux[0][11]
+    }
+    profissional = {}
+    if contrato['tipo_cuidador'] == 'p':
+        profissional_tuple = sql_consultas.get_cuidadorprofissional(contrato['cpf_cuidador'])
+        profissional = {
+            'entidadedeclasse': profissional_tuple[0][1],
+            'numeroentidadedeclasse': profissional_tuple[0][2]
+        }
+
+    return render(request, 'prontuarioMedico/cuidador/cuidador_contratos_detalhes.html', {'pagina': 'cuidador_contratos', 'form': contrato, 'profissional': profissional})
 
 
 def cuidador_novo(request):
@@ -125,7 +150,14 @@ def cuidador_detalhes(request, id):
     for aux in telefone_tuple:
         telefones.append({'tipo': aux[0],
                           'telefone': aux[1] })
-    return render(request, 'prontuarioMedico/cuidador/cuidador_detalhes.html', {'pagina': 'cuidador_detalhes', 'form': cuidador, 'telefone': telefones})
+    profissional = {}
+    if (cuidador['tipoCuidador'] == 'p'):
+        profissional_tuple = sql_consultas.get_cuidadorprofissional(cuidador['cpf_cuidador'])
+        profissional = {
+            'entidadedeclasse': profissional_tuple[0][1],
+            'numeroentidadedeclasse': profissional_tuple[0][2]
+        }
+    return render(request, 'prontuarioMedico/cuidador/cuidador_detalhes.html', {'pagina': 'cuidador_detalhes', 'form': cuidador, 'telefone': telefones, 'profissional': profissional})
 
 
 # Views de Responsavel

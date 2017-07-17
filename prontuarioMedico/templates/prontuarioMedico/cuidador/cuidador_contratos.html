@@ -14,7 +14,34 @@
             <div class="card">
                 <div class="card-content">
                     <div class="row">
-                        <p>Contratos rs</p>
+                        <div class="table-responsive">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                <thead>
+                                <tr>
+                                    <th>Nome do cuidador</th>
+                                    <th>Nome do paciente</th>
+                                    <th>Tipo</th>
+                                    <th>Inicio</th>
+                                    <th>Fim</th>
+                                    <th>Detalhes</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for contrato in contratos %}
+                                    <tr>
+                                        <td>{{ contrato.nome_cuidador }}</td>
+                                        <td>{{ contrato.nome_paciente }}</td>
+                                        <td>{{ contrato.tipo_atendimento }}</td>
+                                        <td>{{ contrato.data_inicio }}</td>
+                                        <td>{{ contrato.data_fim }}</td>
+                                        <td><div align="center"><a href="{% url 'contrato_detalhes' contrato.id_contrato %}"><i class="fa fa-search"></i></a></div></td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        </div>
                     </div>
                 </div>
             </div>

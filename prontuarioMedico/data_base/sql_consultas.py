@@ -10,7 +10,13 @@ def get_valores_home():
 # Consultas de tabelas
 def get_cuidador():
     cursor = connection.cursor()
-    cursor.execute("SELECT * FROM V_CUIDADOR")
+    cursor.execute("SELECT * FROM V_CUIDADOR ORDER BY TIPO DESC, NOME")
+    row = cursor.fetchall()
+    return row
+
+def get_cuidadorprofissional(cpf):
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM cuidadorprofissional WHERE cpf_cuidador = %s", (cpf,))
     row = cursor.fetchall()
     return row
 
@@ -59,6 +65,12 @@ def get_qtd_atendimento_no_ultimo_mes():
 
 def get_contratos():
     cursor = connection.cursor()
-    cursor.execute("SELECT * FROM V_DETALHECONTRATO")
+    cursor.execute("SELECT * FROM V_DETALHECONTRATO ORDER BY datainicio DESC")
+    row = cursor.fetchall()
+    return row
+
+def get_contratos_por_id(id):
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM V_DETALHECONTRATO WHERE id_contrato=%s", (id,))
     row = cursor.fetchall()
     return row

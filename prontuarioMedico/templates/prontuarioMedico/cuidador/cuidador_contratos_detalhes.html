@@ -1,0 +1,116 @@
+{% extends 'prontuarioMedico/base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    Prontuario Médico
+{% endblock title %}
+
+{% block head_extensions %}
+    <link rel="stylesheet" href="{% static 'prontuarioMedico/css/prontuario_custom.css' %}">
+{% endblock head_extensions %}
+
+{% block header %}
+    Detalhes do Contrato
+{% endblock header %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-content">
+                    <form action="." method="POST" id="">{% csrf_token %}
+                        <div class="row">
+                        <div align="center"><h4>Dados do Cuidador</h4></div>
+                            <div class="input-field col s4">
+                                <label class="active" for="id_nome_c">Nome</label>
+                                <input id="id_nome_c" type="text" value="{{ form.nome_cuidador }}" disabled>
+                            </div>
+                            <div class="input-field col s4">
+                                <label class="active" for="id_tipocuidador">Categoria</label>
+                                <input id="id_tipocuidador" type="text" value="{% if form.tipo_cuidador == 'p' %} Profissional {% else %} Não Profissional {% endif %}" disabled>
+                            </div>
+                            <div class="input-field col s4">
+                                <label for="cpf" class="active">CPF</label>
+                                <input type="text" id="cpf" value="{{ form.cpf_cuidador }}" disabled>
+                            </div>
+                        </div>
+                        {% if form.tipo_cuidador == 'p' %}
+                            <div class="row">
+                             <div class="input-field col s4">
+                                <label class="active" for="id_entidade">Entidade</label>
+                                <input id="id_entidade" type="text" value="{{ profissional.entidadedeclasse }}" disabled>
+                            </div>
+                            <div class="input-field col s4">
+                                <label class="active" for="id_nroentidade">Numero de Registro</label>
+                                <input id="id_nroentidade" type="text" value="{{ profissional.numeroentidadedeclasse }}" disabled>
+                            </div>
+                            </div>
+                        {% endif %}
+                        <div class="row">
+                            <div align="center"><h4>Dados do Paciente</h4></div>
+                            <div class="input-field col s8">
+                                <label for="id_nome_p" class="active">Nome</label>
+                                <input type="text" name="nome_p" id="id_nome_p"
+                                       value="{{ form.nome_paciente }}" disabled>
+                            </div>
+                            <div class="input-field col s4">
+                                <label for="id_cpf_p" class="active">RG</label>
+                                <input type="text" id="id_cpf_p" value="{{ form.cpf_paciente }}" disabled>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div align="center"><h4>Dados do contrato</h4></div>
+                            <div class="input-field col s2">
+                                <label for="id_datainicio" class="active">Inicio</label>
+                                <input type="text" id="id_datainicio" value="{{ form.data_inicio }}" disabled>
+                            </div>
+                            <div class="input-field col s2">
+                                <label for="id_datafim" class="active">Fim</label>
+                                <input type="text" id="id_datafim" value="{{ form.data_fim }}" disabled>
+                            </div>
+                            <div class="input-field col s4">
+                                <label for="id_tipoatendimento" class="active">Tipo</label>
+                                <input type="text" id="id_tipoatendimento" value="{{ form.tipo_atendimento }}" disabled>
+                            </div>
+                            <div class="input-field col s4">
+                                <label for="id_diavencimento" class="active">Vencimento</label>
+                                <input type="text" id="id_diavencimento" value="{{ form.dia_vencimento }}" disabled>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s4">
+                                <label for="id_valor" class="active">Valor</label>
+                                <input type="text" id="id_valor" value="{{ form.valor_atendimento }}" disabled>
+                            </div>
+                            <div class="input-field col s4">
+                                <label for="id_periodicidade" class="active">Periodicidade</label>
+                                <input type="text" id="id_periodicidade" value="{{ form.periodicidade }}" disabled>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div align="right">
+                            <a href="{% url 'cuidador_contratos' %}" class="waves-effect waves-light btn-lg"><i class="fa fa-arrow-circle-left"></i>Voltar</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock body %}
+
+{% block extra_scripts %}
+    <script type="text/javascript">
+        $("#id_cpf_p").mask('000.000.000-00', {reverse:true})
+    </script>
+
+    <script type="text/javascript">
+        function RemoveMaskAndSubmit() {
+            $("#cpf").mask('00000000000');
+            $("#id_cep").mask('00000000');
+            $('#cria_cuidador').submit();
+        }
+    </script>
+{% endblock extra_scripts %}

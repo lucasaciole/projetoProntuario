@@ -10,7 +10,7 @@
 {% endblock head_extensions %}
 
 {% block header %}
-    Cadastro de Cuidador
+    Detalhes do Cuidador
 {% endblock header %}
 
 {% block body %}
@@ -82,7 +82,32 @@
                                 <input type="text" id="id_estado" value="{{ form.estado }}" disabled>
                             </div>
                         </div>
-                        {{ form.errors }}
+                        <div class="row">
+                            {% for tel in telefone %}
+                                <div class="input-field col s4">
+                                <label for="id_{{ tel.telefone }}" class="active">Telefone - {{ tel.tipo }}</label>
+                                <input type="text" id="id_telefone" value="{{ tel.telefone }}" disabled>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% if form.tipoCuidador == 'p' %}
+                            <div class="row">
+                            <div class="input-field col s4">
+                                <label for="id_entidadeclasse" class="active">Entidade de classe</label>
+                                <input type="text" id="id_entidadeclasse" value="{{ profissional.entidadedeclasse }}" disabled>
+                            </div>
+                            <div class="input-field col s4">
+                                <label for="id_numeroclasse" class="active">Numero de entidade de classe</label>
+                                <input type="text" id="id_numeroclasse" value="{{ profissional.numeroentidadedeclasse }}" disabled>
+                            </div>
+                            </div>
+                        {% endif %}
+                        </div>
+                        <div class="row">
+                            <div align="right">
+                            <a href="{% url 'cuidador_index' %}" class="waves-effect waves-light btn-lg"><i class="fa fa-arrow-circle-left"></i>Voltar</a>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>

@@ -1,4 +1,4 @@
-from django.db import connection, transaction
+from django.db import connection
 
 
 # Consultas de quantidades
@@ -78,6 +78,11 @@ def get_qtd_atendimento_no_ultimo_mes():
     row = cursor.fetchall()
     return row[0][0]
 
+def get_medicos():
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM v_detalhesmedico ORDER BY nome")
+    row = cursor.fetchall()
+    return row
 
 def get_contratos():
     cursor = connection.cursor()

@@ -1,5 +1,6 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+
 from prontuarioMedico.data_base import sql_consultas, sql_inserts
 from .forms import CuidadorForm
 from .forms import NameForm
@@ -51,8 +52,17 @@ def paciente_index(request):
 
 # Views de Medico
 def medico_index(request):
-    context_dictionary = {'pagina': 'medico_index'}
+    medicos_tupla = sql_consultas.get_medicos()
 
+    medicos = []
+    for medico in medicos_tupla:
+        medicos .append({'crm': medico[0],
+                          'nome': medico[1],
+                          'cidade': medico[2],
+                          'especialidade': medico[3]})
+
+    context_dictionary = {'pagina': 'medico_index',
+                          'medicos': medicos}
     return render(request, 'prontuarioMedico/medico/medico_index.html', context_dictionary)
 
 

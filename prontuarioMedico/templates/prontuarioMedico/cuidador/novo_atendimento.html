@@ -1,0 +1,69 @@
+{% extends 'prontuarioMedico/base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    Prontuario Médico
+{% endblock title %}
+
+{% block header %}
+    Novo Atendimento
+{% endblock header %}
+
+{% block body %}
+
+    <form action="{% url 'novo_atendimento' %}" method="POST" id="cria_atendimento">{% csrf_token %}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-title center">
+                        <br/>
+                        Dados do Atendimento
+                        <hr>
+                    </div>
+                    <div class="card-content">
+                        <div class="row">
+
+                            <div class="input-field col s6">
+                                <label class="active" for="id_nome">Horário Inicial</label>
+                                {{ form.horario_inicial }}
+                            </div>
+
+                            <div class="input-field col s6">
+                                <label class="active" for="id_nome">Horário Final</label>
+                                {{ form.horario_final }}
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <label class="active" for="id_nome">CPF do Cuidador</label>
+                                {{ form.cpf_cuidador }}
+                            </div>
+
+                            <div class="input-field col s6">
+                                <label class="active" for="id_nome">CPF do Paciente</label>
+                                {{ form.cpf_paciente }}
+                            </div>
+                        </div>
+
+                        <div class="row" align="right">
+                            <div class="col-md-12">
+                                <button class="btn waves-effect waves-light" type="submit" value="Submit">
+                                    Continuar
+                                    <i class="material-icons right">send</i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock body %}
+
+{% block extra_scripts %}
+    <script>
+        $('select').material_select();
+    </script>
+{% endblock extra_scripts %}

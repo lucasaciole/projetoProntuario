@@ -13,6 +13,15 @@ urlpatterns = [
     url(r'^cuidador/novo/$', views.cuidador_novo, name='cuidador_novo'),
     url(r'^cuidador/atendimentos/$', views.cuidador_atendimentos, name='cuidador_atendimentos'),
     url(r'^cuidador/planos/$', views.cuidador_planos, name='cuidador_planos'),
+    url(r'^cuidador/atendimento/(?P<id>\d+)/$', views.cuidador_atendimentos_detalhes,
+        name='cuidador_atendimentos_detalhes'),
+    url(r'^cuidador/atendimento/(?P<id>\d+)/nova_intercorrencia$', views.atendimento_nova_intercorrencia,
+        name='nova_intercorrencia'),
+    url(r'^cuidador/atendimento/(?P<id>\d+)/nova_atividade$', views.atendimento_nova_atividade,
+        name='nova_atividade'),
+    url(r'^cuidador/atendimento/(?P<id_atendimento>\d+)/atividade/(?P<id_atividade>\d+)/nova_medida/$', views.atendimento_nova_medida,
+        name='nova_medida'),
+    url(r'^cuidador/atendimento/novo$', views.novo_atendimento, name='novo_atendimento'),
     url(r'^responsabilidades/$', views.responsavel_responsabilidades, name='responsabilidades'),
     url(r'^admin/$', views.admin_index, name='admin')
 ]

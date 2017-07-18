@@ -7,7 +7,7 @@ choices_profissional = (
     ('p', 'Profissional')
 )
 
-choices_estado  = (
+choices_estado = (
     ('AC', 'Acre'),
     ('AL', 'Alagoas'),
     ('AP', 'Amapá'),
@@ -198,4 +198,100 @@ class ContratoForm(forms.Form):
     )
     periodicidade = forms.CharField(
         label = 'Periodicidade'
+    )
+
+
+class AtendimentoForm(forms.Form):
+    cpf_cuidador = forms.CharField(
+        label='CPF do Cuidador',
+        widget=forms.TextInput()
+    )
+
+    cpf_paciente = forms.CharField(
+        label='CPF do Paciente',
+        widget=forms.TextInput()
+    )
+
+    tipo_local = forms.ChoiceField(
+        choices=(),
+        widget=forms.RadioSelect(),
+        required=False
+    )
+    horario_inicial = forms.CharField(
+        widget=forms.TextInput(),
+        required=True
+    )
+
+    horario_final = forms.CharField(
+        widget=forms.TextInput(),
+        required=True,
+    )
+
+    logradouro = forms.CharField(
+        label='Logradouro',
+        widget=forms.TextInput(),
+        required=False
+    )
+    numero = forms.CharField(
+        label='Numero',
+        widget=forms.TextInput(),
+        required=False
+    )
+    bairro = forms.CharField(
+        label='Bairro',
+        widget=forms.TextInput(),
+        required=False
+    )
+    complemento = forms.CharField(
+        label='Complemento',
+        widget=forms.TextInput(),
+        required=False
+    )
+    cidade = forms.CharField(
+        label='Cidade',
+        widget=forms.TextInput(),
+        required=False
+    )
+    estado = forms.ChoiceField(
+        label='Estado',
+        choices=choices_estado,
+        required=False
+    )
+    cep = forms.CharField(
+        label='CEP',
+        widget=forms.TextInput(),
+        required=False
+    )
+
+class intercorrenciaForm(forms.Form):
+    intercorrencia = forms.CharField(
+        label='Intercorrência',
+        widget=forms.Textarea()
+    )
+
+class atividadeForm(forms.Form):
+    nome = forms.CharField(
+        label='Nome',
+        widget=forms.TextInput()
+    )
+
+class medidaForm(forms.Form):
+    medida = forms.CharField(
+        label='medida',
+        widget=forms.TextInput()
+    )
+
+    aparelho = forms.CharField(
+        label='aparelho',
+        widget=forms.TextInput()
+    )
+
+    valor = forms.CharField(
+        label='valor',
+        widget=forms.TextInput()
+    )
+
+    unidade = forms.CharField(
+        label='unidade',
+        widget=forms.TextInput()
     )

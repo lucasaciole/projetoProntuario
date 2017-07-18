@@ -40,12 +40,12 @@
                                         <td>{{ atendimento.cpf_paciente }}</td>
                                         <td>{{ atendimento.nome_paciente }}</td>
                                         <td>
-                                            <div align="center"><a href=""><i
+                                            <div align="center"><a
+                                                    href="{% url 'cuidador_atendimentos_detalhes' atendimento.id %}"><i
                                                     class="fa fa-search"></i></a></div>
                                         </td>
                                     </tr>
                                 {% endfor %}
-
                                 </tbody>
                             </table>
                         </div>
@@ -57,7 +57,7 @@
 
     <div class="fixed-action-btn horizontal click-to-toggle">
         <a class="btn-floating btn-large waves-effect waves-light red" title="Cadastrar Novo"
-           href="#"><i class="material-icons">add</i></a>
+           href="{% url 'novo_atendimento' %}"><i class="material-icons">add</i></a>
     </div>
 
 {% endblock body %}

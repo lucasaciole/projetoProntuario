@@ -1,0 +1,71 @@
+{% extends 'prontuarioMedico/base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    Prontuario Médico
+{% endblock title %}
+
+{% block header %}
+
+{% endblock header %}
+
+{% block body %}
+
+    <form action="/cuidador/atendimento/{{ atendimento }}/atividade/{{ atividade }}/nova_medida/" method="POST"
+          id="cria_atendimento">{% csrf_token %}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-title center">
+                        <br/>
+                        Nova Medida
+                        <hr>
+                    </div>
+                    <div class="card-content">
+
+                        <div class="row">
+                            <div class="input-field col s3">
+                                <label for="id_cep">Nome da Medida</label>
+                                {{ form.medida }}
+                            </div>
+
+                            <div class="input-field col s3">
+                                <label for="id_cep">Nome do Aparelho</label>
+                                {{ form.aparelho }}
+                            </div>
+
+                            <div class="input-field col s3">
+                                <label for="id_cep">Valor Medido</label>
+                                {{ form.valor }}
+                            </div>
+
+                            <div class="input-field col s3">
+                                <label for="id_cep">Unidade de Medição</label>
+                                {{ form.unidade }}
+                            </div>
+                        </div>
+
+                        <div class="row" align="right">
+                            <div class="col-md-12">
+                                <button class="btn waves-effect waves-light green" type="submit" value="Submit"
+                                        name="novaAtividade">
+                                    Adicionar medida
+                                    <i class="material-icons right">add</i>
+                                </button>
+                                <button class="btn waves-effect waves-light" type="submit" value="Submit"
+                                        name="finalizar">
+                                    Finalizar
+                                    <i class="material-icons right">send</i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock body %}
+
+{% block extra_scripts %}
+
+{% endblock extra_scripts %}

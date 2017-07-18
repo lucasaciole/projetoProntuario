@@ -114,3 +114,26 @@ def get_paciente_by_id(id):
     cursor.execute("SELECT * FROM PACIENTE WHERE id_paciente = %s", (id,))
     row = cursor.fetchall()
     return row[0]
+def get_atendimento_por_id(id):
+    id = str(id)
+    dados_do_atendimento = {}
+
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM v_DetalheAtendimentoCuidador WHERE id_atendimentocuidador = %s", (id,))
+    dados_do_atendimento['atendimento'] = cursor.fetchall()[0]
+
+    cursor.execute("SELECT * FROM ATIVIDADE WHERE fk_atendimentocuidador = %s", (id,))
+    dados_do_atendimento['atividades'] = cursor.fetchall()
+
+    cursor.execute("SELECT intercorrencia FROM IntercorrenciaAtendimentoCuidador WHERE id_atendimentocuidador = %s", (id,))
+    dados_do_atendimento['intercorrencias'] = cursor.fetchall()
+
+    return dados_do_atendimento
+
+def get_medidas_atividade(id):
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM MedidaAtividade WHERE fk_atividade = %s", (id,))
+    return cursor.fetchall()
+
+
+

@@ -1,0 +1,50 @@
+{% extends 'prontuarioMedico/base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    Prontuario Médico
+{% endblock title %}
+
+{% block header %}
+
+{% endblock header %}
+
+{% block body %}
+
+    <form action="/cuidador/atendimento/{{ atendimento }}/nova_intercorrencia" method="POST"
+          id="cria_atendimento">{% csrf_token %}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-title center">
+                        <br/>
+                        Nova Intercorrência
+                        <hr>
+                    </div>
+                    <div class="card-content">
+
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <textarea id="textarea1" class="materialize-textarea" name="intercorrencia"></textarea>
+                                <label for="textarea1">Insira a intercorrência aqui</label>
+                            </div>
+                        </div>
+
+                        <div class="row" align="right">
+                            <div class="col-md-12">
+                                <button class="btn waves-effect waves-light" type="submit" value="Submit">
+                                    Cadastrar
+                                    <i class="material-icons right">send</i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock body %}
+
+{% block extra_scripts %}
+
+{% endblock extra_scripts %}

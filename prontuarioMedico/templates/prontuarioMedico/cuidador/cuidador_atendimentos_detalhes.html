@@ -1,0 +1,142 @@
+{% extends 'prontuarioMedico/base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    Prontuario Médico
+{% endblock title %}
+
+{% block head_extensions %}
+    <link rel="stylesheet" href="{% static 'prontuarioMedico/css/prontuario_custom.css' %}">
+{% endblock head_extensions %}
+
+{% block header %}
+    Detalhes do atendimento
+{% endblock header %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-title center">
+                    Dados do Atendimento
+                    <hr>
+                </div>
+                <div class="card-content">
+                    <div class="row">
+                        <div class="input-field col s2">
+                            <label class="active" for="id_nome">ID</label>
+                            <input id="id_nome" type="text" value="{{ atendimento.id }}" disabled>
+                        </div>
+
+                        <div class="input-field col s5">
+                            <label class="active" for="id_nome">Horário Inicial</label>
+                            <input id="id_nome" type="text" value="{{ atendimento.horario_inicio }}" disabled>
+                        </div>
+
+                        <div class="input-field col s5">
+                            <label class="active" for="id_nome">Horário Final</label>
+                            <input id="id_nome" type="text" value="{{ atendimento.horario_fim }}" disabled>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s4">
+                            <label class="active" for="id_nome">CPF do Cuidador</label>
+                            <input id="id_nome" type="text" value="{{ atendimento.cpf_cuidador }}" disabled>
+                        </div>
+
+                        <div class="input-field col s8">
+                            <label class="active" for="id_nome">Nome do Cuidador</label>
+                            <input id="id_nome" type="text" value="{{ atendimento.nome_cuidador }}" disabled>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s4">
+                            <label class="active" for="id_nome">CPF do Paciente</label>
+                            <input id="id_nome" type="text" value="{{ atendimento.cpf_paciente }}" disabled>
+                        </div>
+
+                        <div class="input-field col s8">
+                            <label class="active" for="id_nome">Nome do Paciente</label>
+                            <input id="id_nome" type="text" value="{{ atendimento.nome_paciente }}" disabled>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-title center">
+                    Intercorrências
+
+                </div>
+                <div class="card-content">
+                    <hr>
+                    {% for intercorrencia in intercorrencias %}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p>{{ intercorrencia }}</p>
+                                <hr>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <a class="btn-floating waves-effect waves-light green"
+                       href="{% url 'nova_intercorrencia' atendimento.id %}"><i class="material-icons">add</i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-title center">
+                    Atividades Realizadas
+                    <hr>
+                </div>
+
+                <div class="card-content">
+
+
+                    <ul class="collapsible" data-collapsible="accordion">
+                        {% for atividade in atividades %}
+                            <li>
+                                <div class="collapsible-header"><i
+                                        class="material-icons">filter_drama</i>{{ atividade.nome_atividade }}
+                                </div>
+                                <div class="collapsible-body">
+                                    {% for medida in atividade.medidas %}
+                                        <p><b>Medida</b>: {{ medida.nome }} &#160 &#160
+                                            <b>Aparelho</b>: {{ medida.aparelho }} &#160 &#160
+                                            <b>Valor</b>: {{ medida.valor }} &#160 {{ medida.unidade }}</p>
+                                    {% endfor %}
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <a class="btn-floating waves-effect waves-light green"
+                       href="{% url 'nova_atividade' atendimento.id %}"><i class="material-icons">add</i></a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+{% endblock body %}
+
+{% block extra_scripts %}
+
+    <script type="text/javascript">
+        function RemoveMaskAndSubmit() {
+            $("#cpf").mask('00000000000');
+            $("#id_cep").mask('00000000');
+            $('#cria_cuidador').submit();
+        }
+    </script>
+{% endblock extra_scripts %}

@@ -2,7 +2,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 from prontuarioMedico.data_base import sql_consultas, sql_inserts
-from .forms import CuidadorForm
+from .forms import CuidadorForm, AtendimentoForm, intercorrenciaForm, atividadeForm, medidaForm
 from .forms import NameForm
 from .forms import ContratoForm
 
@@ -21,7 +21,7 @@ def home(request):
     context_dictionary = {'pagina': 'home',
                           'nro_pacientes': nro_pacientes,
                           'nro_cuidadores': nro_cuidadores,
-                          'nro_medicos':nro_medicos,
+                          'nro_medicos': nro_medicos,
                           'nro_responsabilidades': nro_responsabilidades,
                           'frac_meta_atendimento': frac_meta_atendimento}
 
@@ -203,6 +203,112 @@ def cuidador_atendimentos(request):
     context_dictionary = {'pagina': 'cuidador_atendimentos',
                           'atendimentos': atendimentos}
     return render(request, 'prontuarioMedico/cuidador/cuidador_atendimentos.html', context_dictionary)
+
+
+def cuidador_atendimentos_detalhes(request, id):
+    atendimento_tuple = sql_consultas.get_atendimento_por_id(id)
+    print(atendimento_tuple)
+    atendimento = {'id': atendimento_tuple['atendimento'][0],
+                   'horario_inicio': atendimento_tuple['atendimento'][1],
+                   'horario_fim': atendimento_tuple['atendimento'][2],
+                   'cpf_cuidador': atendimento_tuple['atendimento'][3],
+                   'nome_cuidador': atendimento_tuple['atendimento'][4],
+                   'cpf_paciente': atendimento_tuple['atendimento'][5],
+                   'nome_paciente': atendimento_tuple['atendimento'][6],
+                   }
+
+    intercorrencias = []
+    for intercorrencia in atendimento_tuple['intercorrencias']:
+        intercorrencias.append(intercorrencia[0])
+        print(intercorrencia[0])
+
+    atividades = []
+    for atividade in atendimento_tuple['atividades']:
+        medidas = []
+        for medida in sql_consultas.get_medidas_atividade(atividade[0]):
+            medidas.append({'id': medida[0],
+                            'nome': medida[2],
+                            'aparelho': medida[3],
+                            'valor': medida[4],
+                            'unidade': medida[5]})
+
+        atividades.append({'id': atividade[0],
+                           'nome_atividade': atividade[2],
+                           'medidas': medidas})
+
+    context_dictionary = {'pagina': 'cuidador_atendimentos_detalhes',
+                          'atendimento': atendimento,
+                          'intercorrencias': intercorrencias,
+                          'atividades': atividades}
+
+    return render(request, 'prontuarioMedico/cuidador/cuidador_atendimentos_detalhes.html', context_dictionary)
+
+
+def novo_atendimento(request):
+    if request.method == 'POST':
+        form = AtendimentoForm(request.POST)
+        if form.is_valid():
+            id_novo_atendimento = sql_inserts.inserir_atendimento(form.cleaned_data)
+        else:
+            print("invalid")
+            return render(request, 'prontuarioMedico/cuidador/novo_atendimento.html', {'form': form})
+        return HttpResponseRedirect('/cuidador/atendimento/' + str(1))
+    else:
+        form = AtendimentoForm()
+        return render(request, 'prontuarioMedico/cuidador/novo_atendimento.html', {'form': form})
+
+
+def atendimento_nova_intercorrencia(request, id):
+    if request.method == 'POST':
+        form = intercorrenciaForm(request.POST)
+        if form.is_valid():
+            status = sql_inserts.inserir_intercorrencia(form.cleaned_data, id)
+            print(status)
+
+        return HttpResponseRedirect('/cuidador/atendimento/' + str(id))
+    else:
+        form = intercorrenciaForm()
+        context_dictionary = {'atendimento': id,
+                              'form': form}
+        return render(request, 'prontuarioMedico/cuidador/atendimento_nova_intercorrencia.html', context_dictionary)
+
+
+def atendimento_nova_atividade(request, id):
+    if request.method == 'POST':
+        form = atividadeForm(request.POST)
+        if form.is_valid():
+            id_atividade = sql_inserts.inserir_atividade(form.cleaned_data, id)
+            print(id_atividade)
+
+        return HttpResponseRedirect('/cuidador/atendimento/' + str(id) + '/atividade/' + str(id_atividade) + '/nova_medida/')
+    else:
+        form = atividadeForm()
+        context_dictionary = {'atendimento': id,
+                              'form': form}
+        return render(request, 'prontuarioMedico/cuidador/atendimento_nova_atividade.html', context_dictionary)
+
+
+def atendimento_nova_medida(request, id_atendimento, id_atividade):
+    if request.method == 'POST':
+        form = medidaForm(request.POST)
+        if form.is_valid():
+            sql_inserts.inserir_medida(form.cleaned_data, id_atividade)
+
+        if 'finalizar' in request.POST:
+            return HttpResponseRedirect('/cuidador/atendimento/' + str(id_atendimento))
+        else:
+            print('add')
+
+            return HttpResponseRedirect(
+                '/cuidador/atendimento/' + str(id_atendimento) + '/atividade/' + str(id_atividade) + '/nova_medida/')
+
+
+    else:
+        form = medidaForm()
+        context_dictionary = {'atendimento': id_atendimento,
+                              'atividade':id_atividade,
+                              'form': form}
+        return render(request, 'prontuarioMedico/cuidador/atividade_nova_medida.html', context_dictionary)
 
 
 # Views de Responsavel

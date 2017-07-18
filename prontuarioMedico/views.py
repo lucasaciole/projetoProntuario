@@ -55,16 +55,38 @@ def paciente_index(request):
     return render(request, 'prontuarioMedico/paciente/paciente_index.html', context_dictionary)
 
 
+def paciente_detalhes(request, id):
+    paciente_tuple = sql_consultas.get_paciente_by_id(id)
+    paciente = {
+        'id_paciente': paciente_tuple[0],
+        'nome': paciente_tuple[1],
+        'datanascimento': paciente_tuple[2],
+        'estado': paciente_tuple[3],
+        'cidade': paciente_tuple[4],
+        'cep': paciente_tuple[5],
+        'logradouro': paciente_tuple[6],
+        'numero': paciente_tuple[7],
+        'complemento': paciente_tuple[8],
+        'bairro': paciente_tuple[9],
+    }
+
+    context_dictionary = {'pagina': 'paciente_detalhes',
+                          'form': paciente}
+
+    return render(request, 'prontuarioMedico/paciente/paciente_detalhes.html',
+                  context_dictionary)
+
+
 # Views de Medico
 def medico_index(request):
     medicos_tupla = sql_consultas.get_medicos()
 
     medicos = []
     for medico in medicos_tupla:
-        medicos .append({'crm': medico[0],
-                          'nome': medico[1],
-                          'cidade': medico[2],
-                          'especialidade': medico[3]})
+        medicos.append({'crm': medico[0],
+                        'nome': medico[1],
+                        'cidade': medico[2],
+                        'especialidade': medico[3]})
 
     context_dictionary = {'pagina': 'medico_index',
                           'medicos': medicos}
@@ -90,35 +112,36 @@ def cuidador_contratos(request):
     contratos = []
     for contrato_aux in contratos_tuple:
         contratos.append({'id_contrato': contrato_aux[0],
-               'cpf_cuidador': contrato_aux[1],
-               'nome_cuidador': contrato_aux[2],
-               'cpf_paciente': contrato_aux[4],
-               'nome_paciente': contrato_aux[5],
-               'data_inicio': contrato_aux[6],
-               'data_fim': contrato_aux[7],
-               'tipo_atendimento': contrato_aux[8],
-               'dia_vencimento': contrato_aux[9],
-               'valor_atendimento': contrato_aux[10],
-               'periodicidade': contrato_aux[11]
-               })
+                          'cpf_cuidador': contrato_aux[1],
+                          'nome_cuidador': contrato_aux[2],
+                          'cpf_paciente': contrato_aux[4],
+                          'nome_paciente': contrato_aux[5],
+                          'data_inicio': contrato_aux[6],
+                          'data_fim': contrato_aux[7],
+                          'tipo_atendimento': contrato_aux[8],
+                          'dia_vencimento': contrato_aux[9],
+                          'valor_atendimento': contrato_aux[10],
+                          'periodicidade': contrato_aux[11]
+                          })
     context_dictionary = {'pagina': 'cuidador_contratos',
                           'contratos': contratos}
     return render(request, 'prontuarioMedico/cuidador/cuidador_contratos.html', context_dictionary)
 
+
 def cuidador_contrato_detalhes(request, id):
     contrato_aux = sql_consultas.get_contratos_por_id(id)
     contrato = {
-        'cpf_cuidador': contrato_aux[0][1],
-        'nome_cuidador': contrato_aux[0][2],
-        'tipo_cuidador':contrato_aux[0][3],
-        'cpf_paciente': contrato_aux[0][4],
-        'nome_paciente': contrato_aux[0][5],
-        'data_inicio': contrato_aux[0][6],
-        'data_fim': contrato_aux[0][7],
-        'tipo_atendimento': contrato_aux[0][8],
-        'dia_vencimento': contrato_aux[0][9],
-        'valor_atendimento': contrato_aux[0][10],
-        'periodicidade': contrato_aux[0][11]
+        'cpf_cuidador': contrato_aux[1],
+        'nome_cuidador': contrato_aux[2],
+        'tipo_cuidador': contrato_aux[3],
+        'cpf_paciente': contrato_aux[4],
+        'nome_paciente': contrato_aux[5],
+        'data_inicio': contrato_aux[6],
+        'data_fim': contrato_aux[7],
+        'tipo_atendimento': contrato_aux[8],
+        'dia_vencimento': contrato_aux[9],
+        'valor_atendimento': contrato_aux[10],
+        'periodicidade': contrato_aux[11]
     }
     profissional = {}
     if contrato['tipo_cuidador'] == 'p':
@@ -128,7 +151,8 @@ def cuidador_contrato_detalhes(request, id):
             'numeroentidadedeclasse': profissional_tuple[0][2]
         }
 
-    return render(request, 'prontuarioMedico/cuidador/cuidador_contratos_detalhes.html', {'pagina': 'cuidador_contratos', 'form': contrato, 'profissional': profissional})
+    return render(request, 'prontuarioMedico/cuidador/cuidador_contratos_detalhes.html',
+                  {'pagina': 'cuidador_contratos', 'form': contrato, 'profissional': profissional})
 
 
 def cuidador_novo(request):
@@ -146,52 +170,53 @@ def cuidador_novo(request):
         form = CuidadorForm()
         return render(request, 'prontuarioMedico/cuidador/cuidador_novo.html', {'form': form})
 
-def cuidador_detalhes(request, id):
-        cuidador_tuple = sql_consultas.get_cuidador_por_cpf(id)
-        cuidador = {
-            'cpf_cuidador': cuidador_tuple[0][0],
-            'nome': cuidador_tuple[0][1],
-            'tipoCuidador': cuidador_tuple[0][2],
-            'datanascimento': cuidador_tuple[0][3],
-            'logradouro': cuidador_tuple[0][4],
-            'numero': cuidador_tuple[0][5],
-            'complemento': cuidador_tuple[0][6],
-            'bairro': cuidador_tuple[0][7],
-            'cidade': cuidador_tuple[0][8],
-            'estado': cuidador_tuple[0][9],
-            'cep': cuidador_tuple[0][10],
-            'rg': cuidador_tuple[0][11],
-        }
-        telefone_tuple = sql_consultas.get_telefone_cuidador(id)
-        telefones = []
-        for aux in telefone_tuple:
-            telefones.append({'tipo': aux[0],
-                              'telefone': aux[1] })
-        profissional = {}
-        if (cuidador['tipoCuidador'] == 'p'):
-            profissional_tuple = sql_consultas.get_cuidadorprofissional(cuidador['cpf_cuidador'])
-            profissional = {
-                'entidadedeclasse': profissional_tuple[0][1],
-                'numeroentidadedeclasse': profissional_tuple[0][2]
-            }
-        horas = []
-        for i in range(0, 24):
-            horas.append(datetime.time(i, 0, 0).strftime("%H:%M"))
 
-        horarios_livres_tupla= sql_consultas.get_horarios_livres_by_cpf(id)
-        horario = []
-        for horario_l in horarios_livres_tupla:
-            horas_livres=24*[0]
-            inicio = horario_l[0]
-            # fim = datetime.strptime(horario_l[1], "%y-%m-%d %H:%M:%S")
-            fim = horario_l[1]
-            if horario.__len__() != 0 and horario[horario.__len__()-1][0] == inicio.strftime("%d/%m/%y"):
-                for i in range(inicio.hour, fim.hour):
-                    horario[horario.__len__()-1][1][i] = 1
-            else:
-                for i in range(inicio.hour, fim.hour):
-                    horas_livres[i] = 1
-                horario.append([inicio.strftime("%d/%m/%y"), horas_livres])
+def cuidador_detalhes(request, id):
+    cuidador_tuple = sql_consultas.get_cuidador_por_cpf(id)
+    cuidador = {
+        'cpf_cuidador': cuidador_tuple[0][0],
+        'nome': cuidador_tuple[0][1],
+        'tipoCuidador': cuidador_tuple[0][2],
+        'datanascimento': cuidador_tuple[0][3],
+        'logradouro': cuidador_tuple[0][4],
+        'numero': cuidador_tuple[0][5],
+        'complemento': cuidador_tuple[0][6],
+        'bairro': cuidador_tuple[0][7],
+        'cidade': cuidador_tuple[0][8],
+        'estado': cuidador_tuple[0][9],
+        'cep': cuidador_tuple[0][10],
+        'rg': cuidador_tuple[0][11],
+    }
+    telefone_tuple = sql_consultas.get_telefone_cuidador(id)
+    telefones = []
+    for aux in telefone_tuple:
+        telefones.append({'tipo': aux[0],
+                          'telefone': aux[1]})
+    profissional = {}
+    if (cuidador['tipoCuidador'] == 'p'):
+        profissional_tuple = sql_consultas.get_cuidadorprofissional(cuidador['cpf_cuidador'])
+        profissional = {
+            'entidadedeclasse': profissional_tuple[0][1],
+            'numeroentidadedeclasse': profissional_tuple[0][2]
+        }
+    horas = []
+    for i in range(0, 24):
+        horas.append(datetime.time(i, 0, 0).strftime("%H:%M"))
+
+    horarios_livres_tupla = sql_consultas.get_horarios_livres_by_cpf(id)
+    horario = []
+    for horario_l in horarios_livres_tupla:
+        horas_livres = 24 * [0]
+        inicio = horario_l[0]
+        # fim = datetime.strptime(horario_l[1], "%y-%m-%d %H:%M:%S")
+        fim = horario_l[1]
+        if horario.__len__() != 0 and horario[horario.__len__() - 1][0] == inicio.strftime("%d/%m/%y"):
+            for i in range(inicio.hour, fim.hour):
+                horario[horario.__len__() - 1][1][i] = 1
+        else:
+            for i in range(inicio.hour, fim.hour):
+                horas_livres[i] = 1
+            horario.append([inicio.strftime("%d/%m/%y"), horas_livres])
 
 
         return render(request, 'prontuarioMedico/cuidador/cuidador_detalhes.html',
@@ -205,11 +230,13 @@ def cuidador_contrato_novo(request):
             ret = sql_inserts.inserir_contrato(form.cleaned_data)
             print(ret)
         else:
-            return render(request, 'prontuarioMedico/cuidador/cuidador_contratos_novo.html', {'pagina': 'cuidador_contratos', 'form': form})
+            return render(request, 'prontuarioMedico/cuidador/cuidador_contratos_novo.html',
+                          {'pagina': 'cuidador_contratos', 'form': form})
         return HttpResponseRedirect('/cuidador/contratos/')
     else:
         form = ContratoForm()
-        return render(request, 'prontuarioMedico/cuidador/cuidador_contratos_novo.html', {'pagina': 'cuidador_contratos' ,'form': form})
+        return render(request, 'prontuarioMedico/cuidador/cuidador_contratos_novo.html',
+                      {'pagina': 'cuidador_contratos', 'form': form})
 
 
 def cuidador_atendimentos(request):
@@ -271,12 +298,13 @@ def cuidador_atendimentos_detalhes(request, id):
 def novo_atendimento(request):
     if request.method == 'POST':
         form = AtendimentoForm(request.POST)
+        print(form)
         if form.is_valid():
             id_novo_atendimento = sql_inserts.inserir_atendimento(form.cleaned_data)
         else:
             print("invalid")
             return render(request, 'prontuarioMedico/cuidador/novo_atendimento.html', {'form': form})
-        return HttpResponseRedirect('/cuidador/atendimento/' + str(1))
+        return HttpResponseRedirect('/cuidador/atendimento/' + str(id_novo_atendimento))
     else:
         form = AtendimentoForm()
         return render(request, 'prontuarioMedico/cuidador/novo_atendimento.html', {'form': form})
@@ -304,7 +332,8 @@ def atendimento_nova_atividade(request, id):
             id_atividade = sql_inserts.inserir_atividade(form.cleaned_data, id)
             print(id_atividade)
 
-        return HttpResponseRedirect('/cuidador/atendimento/' + str(id) + '/atividade/' + str(id_atividade) + '/nova_medida/')
+        return HttpResponseRedirect(
+            '/cuidador/atendimento/' + str(id) + '/atividade/' + str(id_atividade) + '/nova_medida/')
     else:
         form = atividadeForm()
         context_dictionary = {'atendimento': id,
@@ -330,7 +359,7 @@ def atendimento_nova_medida(request, id_atendimento, id_atividade):
     else:
         form = medidaForm()
         context_dictionary = {'atendimento': id_atendimento,
-                              'atividade':id_atividade,
+                              'atividade': id_atividade,
                               'form': form}
         return render(request, 'prontuarioMedico/cuidador/atividade_nova_medida.html', context_dictionary)
 
@@ -367,7 +396,9 @@ def cuidador_planos(request):
                        'nomepaciente': contrato_aux[5],
                        'nro_atividadeprevista': sql_consultas.get_nroatividadeprevista_plano(plano_aux[3])[0]
                        })
-    return render(request, 'prontuarioMedico/cuidador/cuidador_planos.html', {'pagina': 'cuidador_planos', 'planos': planos})
+    return render(request, 'prontuarioMedico/cuidador/cuidador_planos.html',
+                  {'pagina': 'cuidador_planos', 'planos': planos})
+
 
 def cuidador_planos_detalhes(request, id):
     atividades_tuple = sql_consultas.get_atividadeprevista_id(id)
@@ -378,7 +409,9 @@ def cuidador_planos_detalhes(request, id):
             'descricao': aux[3]
         })
         # atividades.append(aux[3])
-    return render(request, 'prontuarioMedico/cuidador/cuidador_plano_detalhes.html', {'pagina': 'cuidador_planos', 'atividades': atividades, 'id': id})
+    return render(request, 'prontuarioMedico/cuidador/cuidador_plano_detalhes.html',
+                  {'pagina': 'cuidador_planos', 'atividades': atividades, 'id': id})
+
 
 def cuidador_planos_novo(request):
     if request.method == 'POST':
@@ -387,14 +420,16 @@ def cuidador_planos_novo(request):
             ret = sql_inserts.inserir_planoatendimento(form.cleaned_data)
             print(ret)
         else:
-            return render(request, 'prontuarioMedico/cuidador/cuidador_planos_novo.html', {'pagina': 'cuidador_planos', 'form': form})
+            return render(request, 'prontuarioMedico/cuidador/cuidador_planos_novo.html',
+                          {'pagina': 'cuidador_planos', 'form': form})
         return HttpResponseRedirect('/cuidador/planos/')
     else:
         form = PlanoAtendimentoForm()
-        return render(request, 'prontuarioMedico/cuidador/cuidador_planos_novo.html', {'pagina': 'cuidador_planos' ,'form': form})
+        return render(request, 'prontuarioMedico/cuidador/cuidador_planos_novo.html',
+                      {'pagina': 'cuidador_planos', 'form': form})
 
 
-def cuidador_atividades_novo (request, id):
+def cuidador_atividades_novo(request, id):
     if request.method == 'POST':
         form = AtividadeForm(request.POST)
         print(form)
@@ -405,11 +440,12 @@ def cuidador_atividades_novo (request, id):
             print("invalid")
             return render(request, 'prontuarioMedico/cuidador/cuidador_planos_atividade_novo.html',
                           {'pagina': 'cuidador_planos', 'form': form, 'id': id})
-        return HttpResponseRedirect('/cuidador/plano/'+id)
+        return HttpResponseRedirect('/cuidador/plano/' + id)
     else:
         form = AtividadeForm()
         return render(request, 'prontuarioMedico/cuidador/cuidador_planos_atividade_novo.html',
                       {'pagina': 'cuidador_planos', 'form': form, 'id': id})
+
 
 # Views de administrador
 def admin_index(request):

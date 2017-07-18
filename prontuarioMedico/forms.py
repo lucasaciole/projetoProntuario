@@ -240,11 +240,6 @@ class AtendimentoForm(forms.Form):
         widget=forms.TextInput()
     )
 
-    tipo_local = forms.ChoiceField(
-        choices=(),
-        widget=forms.RadioSelect(),
-        required=False
-    )
     horario_inicial = forms.CharField(
         widget=forms.TextInput(),
         required=True
@@ -253,42 +248,6 @@ class AtendimentoForm(forms.Form):
     horario_final = forms.CharField(
         widget=forms.TextInput(),
         required=True,
-    )
-
-    logradouro = forms.CharField(
-        label='Logradouro',
-        widget=forms.TextInput(),
-        required=False
-    )
-    numero = forms.CharField(
-        label='Numero',
-        widget=forms.TextInput(),
-        required=False
-    )
-    bairro = forms.CharField(
-        label='Bairro',
-        widget=forms.TextInput(),
-        required=False
-    )
-    complemento = forms.CharField(
-        label='Complemento',
-        widget=forms.TextInput(),
-        required=False
-    )
-    cidade = forms.CharField(
-        label='Cidade',
-        widget=forms.TextInput(),
-        required=False
-    )
-    estado = forms.ChoiceField(
-        label='Estado',
-        choices=choices_estado,
-        required=False
-    )
-    cep = forms.CharField(
-        label='CEP',
-        widget=forms.TextInput(),
-        required=False
     )
 
 class intercorrenciaForm(forms.Form):

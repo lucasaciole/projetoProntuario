@@ -40,7 +40,7 @@
                                         <td>{{ paciente.nome }}</td>
                                         <td>{{ paciente.datanascimento }}</td>
                                         <td>
-                                            <div align="center"><a href="#"><i
+                                            <div align="center"><a href="{% url 'paciente_detalhes' paciente.id_paciente %}"><i
                                                     class="fa fa-search"></i></a></div>
                                         </td>
 

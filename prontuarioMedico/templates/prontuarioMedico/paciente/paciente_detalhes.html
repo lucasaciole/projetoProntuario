@@ -1,0 +1,95 @@
+{% extends 'prontuarioMedico/base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    Prontuario Médico
+{% endblock title %}
+
+{% block head_extensions %}
+    <link rel="stylesheet" href="{% static 'prontuarioMedico/css/prontuario_custom.css' %}">
+{% endblock head_extensions %}
+
+{% block header %}
+    Detalhes do Paciente
+{% endblock header %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-content">
+                    {#                    <form action="." method="POST" id="cria_cuidador">{% csrf_token %}#}
+                    <div class="row">
+                        <div class="input-field col s4">
+                            <label for="id" class="active">ID</label>
+                            <input type="text" id="id" value="{{ form.id_paciente }}" disabled>
+                        </div>
+
+                        <div class="input-field col s4">
+                            <label class="active" for="id_nome">Nome</label>
+                            <input id="id_nome" type="text" value="{{ form.nome }}" disabled>
+                        </div>
+                        <div class="input-field col s4">
+                            <label for="id_datanascimento" class="active">Data Nascimento</label>
+                            <input type="text" name="datanascimento" id="id_datanascimento"
+                                   value="{{ form.datanascimento }}" disabled>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s4">
+                            <label for="id_logradouro" class="active">Logradouro</label>
+                            <input type="text" id="id_logradouro" value="{{ form.logradouro }}" disabled>
+                        </div>
+                        <div class="input-field col s1">
+                            <label for="id_numero" class="active">Número</label>
+                            <input type="text" id="id_numero" value="{{ form.numero }}" disabled>
+                        </div>
+                        <div class="input-field col s4">
+                            <label for="id_bairro" class="active">Bairro</label>
+                            <input type="text" id="id_bairro" value="{{ form.bairro }}" disabled>
+                        </div>
+                        <div class="input-field col s3">
+                            <label for="id_complemento" class="active">Complemento</label>
+                            <input type="text" id="id_complemento" value="{{ form.complemento }}" disabled>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s4">
+                            <label for="id_cep" class="active">CEP</label>
+                            <input type="text" id="id_cep" value="{{ form.cep }}" disabled>
+                        </div>
+                        <div class="input-field col s4">
+                            <label for="id_cidade" class="active">Cidade</label>
+                            <input type="text" id="id_cidade" value="{{ form.cidade }}" disabled>
+                        </div>
+                        <div class="input-field col s4">
+                            <label for="id_estado" class="active">Estado</label>
+                            <input type="text" id="id_estado" value="{{ form.estado }}" disabled>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div align="right">
+                            <a href="{% url 'paciente_index' %}" class="waves-effect waves-light btn-lg"><i
+                                    class="fa fa-arrow-circle-left"></i>Voltar</a>
+                        </div>
+                    </div>
+                    {#                    </form>#}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock body %}
+
+{% block extra_scripts %}
+
+    <script type="text/javascript">
+        function RemoveMaskAndSubmit() {
+            $("#cpf").mask('00000000000');
+            $("#id_cep").mask('00000000');
+            $('#cria_cuidador').submit();
+        }
+    </script>
+{% endblock extra_scripts %}

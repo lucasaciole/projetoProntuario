@@ -195,7 +195,7 @@ def cuidador_detalhes(request, id):
 
 
         return render(request, 'prontuarioMedico/cuidador/cuidador_detalhes.html',
-                      {'pagina': 'cuidador_detalhes', 'form': cuidador, 'telefone': telefones, 'range': horas, 'horario' : horario})
+                      {'pagina': 'cuidador_detalhes', 'form': cuidador, 'telefone': telefones, 'profissional': profissional, 'range': horas, 'horario' : horario})
 
 
 def cuidador_contrato_novo(request):

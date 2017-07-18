@@ -1,12 +1,14 @@
+import datetime as datetime
+
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 from prontuarioMedico.data_base import sql_consultas, sql_inserts
+from .forms import AtividadeForm
+from .forms import ContratoForm
 from .forms import CuidadorForm, AtendimentoForm, intercorrenciaForm, atividadeForm, medidaForm
 from .forms import NameForm
-from .forms import ContratoForm
 from .forms import PlanoAtendimentoForm
-from .forms import AtividadeForm
 
 
 def home(request):
@@ -145,35 +147,55 @@ def cuidador_novo(request):
         return render(request, 'prontuarioMedico/cuidador/cuidador_novo.html', {'form': form})
 
 def cuidador_detalhes(request, id):
-    cuidador_tuple = sql_consultas.get_cuidador_por_cpf(id)
-    cuidador = {
-        'cpf_cuidador': cuidador_tuple[0][0],
-        'nome': cuidador_tuple[0][1],
-        'tipoCuidador': cuidador_tuple[0][2],
-        'datanascimento': cuidador_tuple[0][3],
-        'logradouro': cuidador_tuple[0][4],
-        'numero': cuidador_tuple[0][5],
-        'complemento': cuidador_tuple[0][6],
-        'bairro': cuidador_tuple[0][7],
-        'cidade': cuidador_tuple[0][8],
-        'estado': cuidador_tuple[0][9],
-        'cep': cuidador_tuple[0][10],
-        'rg': cuidador_tuple[0][11],
-    }
-    telefone_tuple = sql_consultas.get_telefone_cuidador(id)
-    telefones = []
-    for aux in telefone_tuple:
-        telefones.append({'tipo': aux[0],
-                          'telefone': aux[1] })
-    profissional = {}
-    if (cuidador['tipoCuidador'] == 'p'):
-        profissional_tuple = sql_consultas.get_cuidadorprofissional(cuidador['cpf_cuidador'])
-        profissional = {
-            'entidadedeclasse': profissional_tuple[0][1],
-            'numeroentidadedeclasse': profissional_tuple[0][2]
+        cuidador_tuple = sql_consultas.get_cuidador_por_cpf(id)
+        cuidador = {
+            'cpf_cuidador': cuidador_tuple[0][0],
+            'nome': cuidador_tuple[0][1],
+            'tipoCuidador': cuidador_tuple[0][2],
+            'datanascimento': cuidador_tuple[0][3],
+            'logradouro': cuidador_tuple[0][4],
+            'numero': cuidador_tuple[0][5],
+            'complemento': cuidador_tuple[0][6],
+            'bairro': cuidador_tuple[0][7],
+            'cidade': cuidador_tuple[0][8],
+            'estado': cuidador_tuple[0][9],
+            'cep': cuidador_tuple[0][10],
+            'rg': cuidador_tuple[0][11],
         }
-    return render(request, 'prontuarioMedico/cuidador/cuidador_detalhes.html',
-                  {'pagina': 'cuidador_detalhes', 'form': cuidador, 'telefone': telefones})
+        telefone_tuple = sql_consultas.get_telefone_cuidador(id)
+        telefones = []
+        for aux in telefone_tuple:
+            telefones.append({'tipo': aux[0],
+                              'telefone': aux[1] })
+        profissional = {}
+        if (cuidador['tipoCuidador'] == 'p'):
+            profissional_tuple = sql_consultas.get_cuidadorprofissional(cuidador['cpf_cuidador'])
+            profissional = {
+                'entidadedeclasse': profissional_tuple[0][1],
+                'numeroentidadedeclasse': profissional_tuple[0][2]
+            }
+        horas = []
+        for i in range(0, 24):
+            horas.append(datetime.time(i, 0, 0).strftime("%H:%M"))
+
+        horarios_livres_tupla= sql_consultas.get_horarios_livres_by_cpf(id)
+        horario = []
+        for horario_l in horarios_livres_tupla:
+            horas_livres=24*[0]
+            inicio = horario_l[0]
+            # fim = datetime.strptime(horario_l[1], "%y-%m-%d %H:%M:%S")
+            fim = horario_l[1]
+            if horario.__len__() != 0 and horario[horario.__len__()-1][0] == inicio.strftime("%d/%m/%y"):
+                for i in range(inicio.hour, fim.hour):
+                    horario[horario.__len__()-1][1][i] = 1
+            else:
+                for i in range(inicio.hour, fim.hour):
+                    horas_livres[i] = 1
+                horario.append([inicio.strftime("%d/%m/%y"), horas_livres])
+
+
+        return render(request, 'prontuarioMedico/cuidador/cuidador_detalhes.html',
+                      {'pagina': 'cuidador_detalhes', 'form': cuidador, 'telefone': telefones, 'range': horas, 'horario' : horario})
 
 
 def cuidador_contrato_novo(request):

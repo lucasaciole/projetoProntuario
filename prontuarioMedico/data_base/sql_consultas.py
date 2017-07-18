@@ -172,5 +172,11 @@ def get_medidas_atividade(id):
     cursor.execute("SELECT * FROM MedidaAtividade WHERE fk_atividade = %s", (id,))
     return cursor.fetchall()
 
+def get_horarios_livres_by_cpf(cpf):
+    cursor = connection.cursor()
+    sqlquery="SELECT horario_inicio, horario_fim FROM horarioslivrescuidador WHERE cpf_cuidador= %s"
+    cursor .execute(sqlquery, (str(cpf),))
+    row = cursor.fetchall()
+    return row
 
 

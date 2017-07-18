@@ -111,64 +111,65 @@
                 </div>
             </div>
         </div>
-    <div  class="card">
-        <div style="overflow-y:auto ;display: block; align-items: baseline;overflow-x:hidden;" class="card-content">
-            <div  ><h1  style="padding-bottom: 0.9em;border-radius: .2em">Chronograma:</h1></div>
-            <div  width="80" style="height: 100px; float: left" >
-                        <table  class="table table-striped table-bordered table-hover" id="dataTables-example">
-                        <thead>
+
+    </div>
+
+<div  class="card">
+    <div style="overflow-y:auto ;display: block; align-items: baseline;overflow-x:hidden;" class="card-content">
+        <div  ><h1  style="padding-bottom: 0.9em;border-radius: .2em">Chronograma:</h1></div>
+        <div  width="80" style="height: 100px; float: left" >
+            <table  class="table table-striped table-bordered table-hover" id="dataTables-example">
+                <thead>
+                <tr>
+                    <th>Hora:</th>
+                </tr>
+
+                {% for i in range %}
+                <tr>
+                    <th>{{i}}</th>
+                </tr>
+                </thead>
+                {% endfor %}
+            </table></div>
+        <div  style="display: inline-block; overflow-x:scroll  ;"  >
+            <table>
+                <tr>
+                    {% for dia in horario %}
+                    <td>
+                        <table max-width="100px" class="table table-striped table-bordered table-hover" id="dataTables1">
+                            <thead>
                             <tr>
-                                <th>Hora:</th>
+                                <th>{{dia.0}}</th>
                             </tr>
+                            </thead>
 
-                        {% for i in range %}
+                            <tbody>
+                            {% for i in dia.1 %}
                             <tr>
-                                <th>{{i}}</th>
-                            </tr>
-                        </thead>
-                        {% endfor %}
-                    </table></div>
-                    <div  style="display: inline-block; overflow-x:scroll  ;"  >
-                        <table>
-                            <tr>
-                                {% for dia in horario %}
-                                <td>
-                                    <table max-width="100px" class="table table-striped table-bordered table-hover" id="dataTables1">
-                                       <thead>
-                                        <tr>
-                                            <th>{{dia.0}}</th>
-                                        </tr>
-                                       </thead>
 
-                                        <tbody>
-                                        {% for i in dia.1 %}
-                                            <tr>
-
-                                                {% if i == 1 %}
-                                                <td style="background: #00e5ff">
-                                                        Livre
-                                                </td>
-                                                {% else %}
-                                                <td style="background: #ffd1d1">
-                                                    Ocupado
-                                                </td>
-
-                                                {% endif%}
-
-                                            </tr>
-                                        {% endfor %}
-                                        </tbody>
-                                    </table>
+                                {% if i == 1 %}
+                                <td style="background: #00e5ff">
+                                    Livre
                                 </td>
-                                {% endfor %}
+                                {% else %}
+                                <td style="background: #ffd1d1">
+                                    Ocupado
+                                </td>
+
+                                {% endif%}
+
                             </tr>
+                            {% endfor %}
+                            </tbody>
                         </table>
-                    </div>
+                    </td>
+                    {% endfor %}
+                </tr>
+            </table>
         </div>
-
-    </div>
     </div>
 
+</div>
 {% endblock body %}
 
 {% block extra_scripts %}

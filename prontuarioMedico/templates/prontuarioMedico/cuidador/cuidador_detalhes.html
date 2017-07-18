@@ -102,8 +102,7 @@
                             </div>
                             </div>
                         {% endif %}
-                        </div>
-                        <div class="row">
+                        <div  class="row">
                             <div align="right">
                             <a href="{% url 'cuidador_index' %}" class="waves-effect waves-light btn-lg"><i class="fa fa-arrow-circle-left"></i>Voltar</a>
                             </div>
@@ -112,6 +111,62 @@
                 </div>
             </div>
         </div>
+    <div  class="card">
+        <div style="overflow-y:auto ;display: block; align-items: baseline;overflow-x:hidden;" class="card-content">
+            <div  ><h1  style="padding-bottom: 0.9em;border-radius: .2em">Chronograma:</h1></div>
+            <div  width="80" style="height: 100px; float: left" >
+                        <table  class="table table-striped table-bordered table-hover" id="dataTables-example">
+                        <thead>
+                            <tr>
+                                <th>Hora:</th>
+                            </tr>
+
+                        {% for i in range %}
+                            <tr>
+                                <th>{{i}}</th>
+                            </tr>
+                        </thead>
+                        {% endfor %}
+                    </table></div>
+                    <div  style="display: inline-block; overflow-x:scroll  ;"  >
+                        <table>
+                            <tr>
+                                {% for dia in horario %}
+                                <td>
+                                    <table max-width="100px" class="table table-striped table-bordered table-hover" id="dataTables1">
+                                       <thead>
+                                        <tr>
+                                            <th>{{dia.0}}</th>
+                                        </tr>
+                                       </thead>
+
+                                        <tbody>
+                                        {% for i in dia.1 %}
+                                            <tr>
+
+                                                {% if i == 1 %}
+                                                <td style="background: #00e5ff">
+                                                        Livre
+                                                </td>
+                                                {% else %}
+                                                <td style="background: #ffd1d1">
+                                                    Ocupado
+                                                </td>
+
+                                                {% endif%}
+
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </td>
+                                {% endfor %}
+                            </tr>
+                        </table>
+                    </div>
+        </div>
+
+    </div>
     </div>
 
 {% endblock body %}

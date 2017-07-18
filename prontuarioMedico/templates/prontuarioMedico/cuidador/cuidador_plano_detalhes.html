@@ -1,0 +1,46 @@
+{%extends 'prontuarioMedico/base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    Prontuario Médico
+{% endblock title %}
+
+{% block header %}
+    Atividades previstas
+{% endblock header %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            {% for atividade in atividades %}
+            <div class="card">
+                <div class="card-content">
+                    <div class="table-responsive">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                <tr>
+                                    <th>Atividade</th>
+                                    <td>{{ atividade.tipo | title }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Descrição</th>
+                                    <td>{{ atividade.descricao | capfirst }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        <div class="row">
+            <div align="right">
+                            <a href="{% url 'cuidador_planos' %}" class="waves-effect waves-light btn-lg"><i class="fa fa-arrow-circle-left"></i>Voltar</a>
+                            </div>
+        </div>
+        </div>
+    </div>
+        <div class="fixed-action-btn horizontal click-to-toggle">
+        <a class="btn-floating btn-large waves-effect waves-light red" title="Cadastrar Novo"
+           href="{% url 'atividade_novo'  id  %}"><i class="material-icons">add</i></a>
+    </div>
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends 'prontuarioMedico/base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    Prontuario Médico
+{% endblock title %}
+
+{% block header %}
+    Cadastro de Plano de Atendimento
+{% endblock header %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-content">
+                    <form action="." method="POST" id="cria_plano">{% csrf_token %}
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <label for="id_id_contrato">Contrato</label>
+                                {{ form.id_contrato }}
+                            </div>
+                            <div class="input-field col s4">
+                                <label for="id_dataplano">Data</label>
+                                {{ form.dataplano }}
+                            </div>
+                            <div class="input-field col s8">
+                                <label for="id_nomeplano">Nome</label>
+                                {{ form.nomeplano }}
+                            </div>
+                        </div>
+                        <div class="row" align="right">
+                            <button class="btn waves-effect waves-light" type="button" value="Submit"
+                                    onclick="RemoveMaskAndSubmit()">
+                                Cadastrar
+                                <i class="material-icons right">send</i>
+                            </button>
+                        </div>
+                        {{ form.errors }}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock body %}
+
+{% block extra_scripts %}
+    <script>
+        $('select').material_select();
+        $('label').addClass('active');
+        $("#id_dataplano").mask('00/00/0000 00h00');
+{#        $("#id_datafim").mask('00/00/0000');#}
+{#        $("#id_cpf_cuidador").mask('000.000.000-00');#}
+{#        $("#id_cpf_paciente").mask('000.000.000-00');#}
+    </script>
+
+    <script type="text/javascript">
+        function RemoveMaskAndSubmit() {
+{#            $("#id_cpf_cuidador").mask('00000000000');#}
+{#            $("#id_cpf_paciente").mask('00000000000');#}
+            $('#cria_plano').submit();
+        }
+    </script>
+{% endblock extra_scripts %}

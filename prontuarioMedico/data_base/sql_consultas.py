@@ -94,7 +94,7 @@ def get_contratos_por_id(id):
     cursor = connection.cursor()
     cursor.execute("SELECT * FROM V_DETALHECONTRATO WHERE id_contrato=%s", (id,))
     row = cursor.fetchall()
-    return row
+    return row[0]
 
 
 def get_atendimentos():
@@ -114,6 +114,43 @@ def get_paciente_by_id(id):
     cursor.execute("SELECT * FROM PACIENTE WHERE id_paciente = %s", (id,))
     row = cursor.fetchall()
     return row[0]
+
+def get_detalhes_pacienteadulto():
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM V_DETALHES_PACIENTEADULTO")
+    row = cursor.fetchall()
+    return row
+
+def get_detalhes_pacienteadulto_bycpf(cpf):
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM V_DETALHES_PACIENTEADULTO WHERE cpf = %s", (cpf,))
+    row = cursor.fetchall()
+    return row[0]
+
+def get_planosdeatendimento():
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM planoatendimento order by dataplano desc")
+    row = cursor.fetchall()
+    return row
+
+def get_nroatendimentos_plano(id):
+    cursor = connection.cursor()
+    cursor.execute("SELECT nro_atendimentos(id_planoatendimento) FROM planoatendimento WHERE id_planoatendimento = %s", (id,))
+    row = cursor.fetchall()
+    return row[0]
+
+def get_atividadeprevista_id(id):
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM atividadeprevista WHERE fk_id_planoatendimento = %s", (id,))
+    row = cursor.fetchall()
+    return row
+
+def get_nroatividadeprevista_plano(id):
+    cursor = connection.cursor()
+    cursor.execute("SELECT nro_atividadeprevista(id_planoatendimento) FROM planoatendimento WHERE id_planoatendimento = %s", (id,))
+    row = cursor.fetchall()
+    return row[0]
+
 def get_atendimento_por_id(id):
     id = str(id)
     dados_do_atendimento = {}

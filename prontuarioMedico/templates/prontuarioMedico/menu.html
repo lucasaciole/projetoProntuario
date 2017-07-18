@@ -54,6 +54,11 @@
                             <i class="fa fa-gavel"></i> Contratos</a>
                     </li>
                     <li>
+                        <a href="{% url 'cuidador_planos' %}"
+                           class="{% if pagina == 'cuidador_planos' %}active-menu{% endif %} waves-effect waves-dark">
+                            <i class="fa fa-briefcase"></i> Planos de Atendimento</a>
+                    </li>
+                    <li>
                         <a href="{% url 'cuidador_atendimentos' %}"
                            class="{% if pagina == 'cuidador_atendimentos' %}active-menu{% endif %} waves-effect waves-dark">
                             <i class="fa fa-plus-square"></i> Atendimentos</a>

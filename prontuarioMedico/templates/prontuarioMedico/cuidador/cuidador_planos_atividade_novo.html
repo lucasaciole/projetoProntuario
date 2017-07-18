@@ -1,0 +1,68 @@
+{% extends 'prontuarioMedico/base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    Prontuario Médico
+{% endblock title %}
+
+{% block header %}
+    Cadastro de Plano de Atendimento
+{% endblock header %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-content">
+                    <form action="{% url 'atividade_novo' id %}" method="POST" id="cria_atividade">{% csrf_token %}
+                        <div class="row">
+                            <div class="input-field col s2">
+                                <label for="id_id_plano">Plano</label>
+                                {{ form.id_plano }}
+{#                                <input type="text" name="id_plano" value="{{ id }}" id="id_id_plano" disabled>#}
+                            </div>
+                            <div class="input-field col s4">
+                                <label for="id_tipo">Tipo</label>
+                                {{ form.tipo }}
+                            </div>
+                            <div class="row">
+                            <div class="input-field col s6">
+                                <label for="id_descricao">Descrição</label>
+                                {{ form.descricao }}
+                            </div>
+                            </div>
+                        </div>
+                        <div class="row" align="right">
+                            <button class="btn waves-effect waves-light" type="button" value="Submit"
+                                    onclick="RemoveMaskAndSubmit()">
+                                Cadastrar
+                                <i class="material-icons right">send</i>
+                            </button>
+                        </div>
+                        {{ form.errors }}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock body %}
+
+{% block extra_scripts %}
+    <script>
+        $('select').material_select();
+        $('label').addClass('active');
+        var id = $("#id_id_plano");
+            id.val("{{ id }}");
+            id.prop('disabled', true);
+    </script>
+
+    <script type="text/javascript">
+        function RemoveMaskAndSubmit() {
+{#            $("#id_id_plano").val("{{ id }}");#}
+{#            $("#id_id_plano").setAttribute("disabled");#}
+            $("#id_id_plano").prop('disabled', false);
+            $('#cria_atividade').submit();
+        }
+    </script>
+{% endblock extra_scripts %}

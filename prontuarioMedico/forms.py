@@ -58,6 +58,16 @@ def choices_cpf_paciente():
         paciente_list.append(tuple(aux))
     return tuple(paciente_list)
 
+def choices_id_contrato():
+    contrato_tup = sql_consultas.get_contratos()
+    contrato_list=[]
+    for aux in contrato_tup:
+        listaux = []
+        listaux.append(aux[0])
+        listaux.append("Cuidador: " + aux[2] + " Paciente: " + aux[5] + " ID: " + str(aux[0]))
+        contrato_list.append(tuple(listaux))
+    return tuple(contrato_list)
+
 class CuidadorForm(forms.Form):
     cpf_cuidador = forms.CharField(
         label='CPF',
@@ -199,6 +209,24 @@ class ContratoForm(forms.Form):
     periodicidade = forms.CharField(
         label = 'Periodicidade'
     )
+
+class PlanoAtendimentoForm(forms.Form):
+    id_contrato = forms.ChoiceField(
+        choices= choices_id_contrato(),
+    )
+    dataplano = forms.CharField(
+        widget=forms.TextInput(attrs={'placeholder': 'DD/MM/AAAA hh:mm'})
+    )
+    nomeplano = forms.CharField()
+
+class AtividadeForm(forms.Form):
+    id_plano = forms.CharField(
+        required=False
+    )
+    tipo = forms.CharField(
+        widget=forms.TextInput(attrs={'placeholder': '"Corrida", "Caminhada", etc'})
+    )
+    descricao = forms.CharField()
 
 
 class AtendimentoForm(forms.Form):

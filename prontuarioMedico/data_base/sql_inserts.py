@@ -16,6 +16,20 @@ def inserir_contrato(form):
     cursor.execute(insert_str, (form['cpf_paciente'], form['cpf_cuidador'], form['datainicio'], form['datafim'], form['tipoatendimento'], form['diavencimento'], form['valoratendimento'], form['periodicidade']))
     return cursor.statusmessage
 
+def inserir_planoatendimento(form):
+    cursor = connection.cursor()
+    insert_str = "insert into planoatendimento(fk_id_contrato, dataplano, nomeplano) "
+    insert_str += "values (%s, to_timestamp(%s, 'dd/mm/yyyy HH24hmi'), %s)"
+    cursor.execute(insert_str, (form['id_contrato'], form['dataplano'], form['nomeplano']))
+    return cursor.statusmessage
+
+def inserir_atividadeprevista(form):
+    cursor = connection.cursor()
+    insert_str = "insert into atividadeprevista(fk_id_planoatendimento, tipo, descricao) "
+    insert_str += "values (%s, %s, %s)"
+    cursor.execute(insert_str, (form['id_plano'], form['tipo'], form['descricao']))
+    return cursor.statusmessage
+
 
 def inserir_atendimento(form):
     cursor = connection.cursor()

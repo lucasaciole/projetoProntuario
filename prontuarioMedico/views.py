@@ -5,6 +5,8 @@ from prontuarioMedico.data_base import sql_consultas, sql_inserts
 from .forms import CuidadorForm, AtendimentoForm, intercorrenciaForm, atividadeForm, medidaForm
 from .forms import NameForm
 from .forms import ContratoForm
+from .forms import PlanoAtendimentoForm
+from .forms import AtividadeForm
 
 
 def home(request):
@@ -331,7 +333,61 @@ def responsavel_responsabilidades(request):
 
 
 def cuidador_planos(request):
-    pass
+    planos_tuple = sql_consultas.get_planosdeatendimento()
+    planos = []
+    for plano_aux in planos_tuple:
+        contrato_aux = sql_consultas.get_contratos_por_id(plano_aux[0])
+        planos.append({'id_contrato': plano_aux[0],
+                       'data': plano_aux[1],
+                       'nomeplano': plano_aux[2],
+                       'id_plano': plano_aux[3],
+                       'nomecuidador': contrato_aux[2],
+                       'nomepaciente': contrato_aux[5],
+                       'nro_atividadeprevista': sql_consultas.get_nroatividadeprevista_plano(plano_aux[3])[0]
+                       })
+    return render(request, 'prontuarioMedico/cuidador/cuidador_planos.html', {'pagina': 'cuidador_planos', 'planos': planos})
+
+def cuidador_planos_detalhes(request, id):
+    atividades_tuple = sql_consultas.get_atividadeprevista_id(id)
+    atividades = []
+    for aux in atividades_tuple:
+        atividades.append({
+            'tipo': aux[2],
+            'descricao': aux[3]
+        })
+        # atividades.append(aux[3])
+    return render(request, 'prontuarioMedico/cuidador/cuidador_plano_detalhes.html', {'pagina': 'cuidador_planos', 'atividades': atividades, 'id': id})
+
+def cuidador_planos_novo(request):
+    if request.method == 'POST':
+        form = PlanoAtendimentoForm(request.POST)
+        if form.is_valid():
+            ret = sql_inserts.inserir_planoatendimento(form.cleaned_data)
+            print(ret)
+        else:
+            return render(request, 'prontuarioMedico/cuidador/cuidador_planos_novo.html', {'pagina': 'cuidador_planos', 'form': form})
+        return HttpResponseRedirect('/cuidador/planos/')
+    else:
+        form = PlanoAtendimentoForm()
+        return render(request, 'prontuarioMedico/cuidador/cuidador_planos_novo.html', {'pagina': 'cuidador_planos' ,'form': form})
+
+
+def cuidador_atividades_novo (request, id):
+    if request.method == 'POST':
+        form = AtividadeForm(request.POST)
+        print(form)
+        if form.is_valid():
+            ret = sql_inserts.inserir_atividadeprevista(form.cleaned_data)
+            print(ret)
+        else:
+            print("invalid")
+            return render(request, 'prontuarioMedico/cuidador/cuidador_planos_atividade_novo.html',
+                          {'pagina': 'cuidador_planos', 'form': form, 'id': id})
+        return HttpResponseRedirect('/cuidador/plano/'+id)
+    else:
+        form = AtividadeForm()
+        return render(request, 'prontuarioMedico/cuidador/cuidador_planos_atividade_novo.html',
+                      {'pagina': 'cuidador_planos', 'form': form, 'id': id})
 
 # Views de administrador
 def admin_index(request):
